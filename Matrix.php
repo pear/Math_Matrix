@@ -880,7 +880,7 @@ class Math_Matrix {/*{{{*/
      * Returns a submatrix from the position (row, col), with nrows and ncols
      *
      * @access public
-     * @return object Math_Matrix on success, PEAR_Error otherwise
+     * @return object mixed Math_Matrix on success, PEAR_Error otherwise
      */
     function &getSubMatrix ($row, $col, $nrows, $ncols) {/*{{{*/
         if (!is_numeric($row) || !is_numeric($col)
@@ -1130,7 +1130,7 @@ class Math_Matrix {/*{{{*/
      * Multiplies a vector by this matrix
      *
      * @param object Math_Vector $v1
-     * @return object an instance of Math_Vector on success, PEAR_Error otherwise
+     * @return object mixed Math_Vector on success, PEAR_Error otherwise
      * @see getSize()
      * @see getRow()
      * @see Math_Vector::get()
@@ -1166,7 +1166,7 @@ class Math_Matrix {/*{{{*/
      * @access public
      * @param string $filename name of file containing matrix data
      * @param optional string $format one of 'serialized' (default) or 'csv'
-     * @return object a Math_Matrix instance on success, a PEAR_Error otherwise
+     * @return object mixed Math_Matrix instance on success, a PEAR_Error otherwise
      */
     function &readFromFile ($filename, $format='serialized') {/*{{{*/
         if (!file_exists($filename) || !is_readable($filename)) {
@@ -1270,7 +1270,7 @@ class Math_Matrix {/*{{{*/
      * @param integer $nrows number of rows in the generated matrix
      * @param integer $ncols number of columns in the generated matrix
      * @param numeric $value the fill value
-     * @return object a Math_Matrix instance on success, PEAR_Error otherwise
+     * @return object mixed Math_Matrix instance on success, PEAR_Error otherwise
      */
     function &makeMatrix ($nrows, $ncols, $value) {/*{{{*/
         if (!is_int($nrows) && is_int($ncols) && !is_numeric($value)) {
@@ -1289,7 +1289,7 @@ class Math_Matrix {/*{{{*/
      * @access public
      * @param integer $nrows number of rows in the generated matrix
      * @param integer $ncols number of columns in the generated matrix
-     * @return object a Math_Matrix instance on success, PEAR_Error otherwise
+     * @return object mixed Math_Matrix instance on success, PEAR_Error otherwise
      * @see Math_Matrix::makeMatrix()
      */
     function &makeOne ($nrows, $ncols) {/*{{{*/
@@ -1303,7 +1303,7 @@ class Math_Matrix {/*{{{*/
      * @access public
      * @param integer $nrows number of rows in the generated matrix
      * @param integer $ncols number of columns in the generated matrix
-     * @return object a Math_Matrix instance on success, PEAR_Error otherwise
+     * @return object mixed Math_Matrix instance on success, PEAR_Error otherwise
      * @see Math_Matrix::makeMatrix()
      */
     function &makeZero ($nrows, $ncols) {/*{{{*/
@@ -1321,7 +1321,7 @@ class Math_Matrix {/*{{{*/
      * @static
      * @access public
      * @param integer $size number of rows and columns in the generated matrix
-     * @return object a Math_Matrix instance
+     * @return object mixed Math_Matrix instance
      * @see Math_Matrix::makeIdentity()
      */
     function &makeUnit ($size) {/*{{{*/
@@ -1343,7 +1343,7 @@ class Math_Matrix {/*{{{*/
      * @static
      * @access public
      * @param integer $size number of rows and columns in the generated matrix
-     * @return object a Math_Matrix instance
+     * @return object mixed Math_Matrix instance
      * @see Math_Matrix::makeUnit()
      */
     function &makeIdentity($size) {/*{{{*/
