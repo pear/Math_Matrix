@@ -1,0 +1,80 @@
+From marcel@palmer.li  Thu Oct 30 03:59:56 2003
+Received: from crystal [137.131.108.73]
+	by localhost with POP3 (fetchmail-6.2.2)
+	for jesusmc@localhost (single-drop); Thu, 30 Oct 2003 03:59:55 -0800 (PST)
+Received: from relay1.scripps.edu (relay1 [137.131.200.29])
+	by crystal.scripps.edu (8.11.6+Sun/TSRI-4.1.0) with ESMTP id h9UBvFH11290
+	for <jesusmc@crystal.scripps.edu>; Thu, 30 Oct 2003 03:57:15 -0800 (PST)
+Received: from antigen.scripps.edu (antigen [137.131.200.100])
+	by relay1.scripps.edu (8.11.7/TSRI-4.4.1rAVB) with SMTP id h9UBvEI17869
+	for <jesusmc@relay2.scripps.edu>; Thu, 30 Oct 2003 03:57:15 -0800 (PST)
+Received: from relay2.scripps.edu(137.131.200.30) by antigen.scripps.edu via csmap 
+	 id 3207; Thu, 30 Oct 2003 04:00:31 -0800 (PST)
+Received: from php.net (pb2.pair.com [216.92.131.5])
+	by relay2.scripps.edu (8.11.7/TSRI-4.4.1rAVB) with SMTP id h9UBvBR07905
+	for <jesusmc@scripps.edu>; Thu, 30 Oct 2003 03:57:13 -0800 (PST)
+Received: (qmail 70794 invoked by alias); 30 Oct 2003 11:57:07 -0000
+Delivered-To: jmcastagnetto@pair2.php.net
+Received: (qmail 67501 invoked by alias); 30 Oct 2003 11:55:27 -0000
+Delivered-To: alias-scan-jmcastagnetto@php.net
+Delivered-To: jmcastagnetto@php.net
+Received: (qmail 67404 invoked from network); 30 Oct 2003 11:55:23 -0000
+Received: from unknown (HELO server.web-hoster.ch) (212.60.42.251)
+  by pb2.pair.com with SMTP; 30 Oct 2003 11:55:23 -0000
+Received: from server.web-hoster.ch (localhost.localdomain [127.0.0.1])
+	by server.web-hoster.ch (8.12.8/8.12.8) with ESMTP id h9UBu59i013015;
+	Thu, 30 Oct 2003 12:56:05 +0100
+Received: (from apache@localhost)
+	by server.web-hoster.ch (8.12.8/8.12.8/Submit) id h9UBtxsm013013;
+	Thu, 30 Oct 2003 12:55:59 +0100
+Received: from mazoo.hta-bi.bfh.ch ([147.87.18.27])
+        (SquirrelMail authenticated user palmer)
+        by webmail.palmer.li with HTTP;
+        Thu, 30 Oct 2003 12:55:59 +0100 (CET)
+Message-ID: <2449.147.87.18.27.1067514959.squirrel@webmail.palmer.li>
+Date: Thu, 30 Oct 2003 12:55:59 +0100 (CET)
+Subject: multiply() in Math_Matrix
+From: "Marcel Brunner" <marcel@palmer.li>
+To: jmcastagnetto@php.net
+Cc: info@visual-portfolio.com
+Reply-To: marcel@palmer.li
+User-Agent: SquirrelMail/1.4.1
+MIME-Version: 1.0
+Content-Type: text/plain;charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+X-Priority: 3
+Importance: Normal
+X-UIDL: S)o!!akR"!U!##!hlV"!
+Status: RO
+X-Status: A
+Content-Length: 735
+Lines: 27
+
+Dear Jesus
+
+Using your Math_Matrix implemention (v 1.6 2003/04/14 11:27:52) i got the
+impression that there is something wrong with your multiply()-method.
+
+The first problem was, that the matrices were not able to have negativ row
+or col-values (the negative ones turn to zero). So, on line 1117, i made
+the following instead of your line:
+
+//if ($data[$i][$j] <= $epsilon) {
+if ( abs($data[$i][$j]) <= $epsilon) {
+
+The Second problem was, that i couldn't multiply a [1x5] with a [5x5]
+matrix. So i also changed the condition of your second check and it worked
+out (line 1106):
+
+//if ($nc1 != $nr) {
+if ($nc != $nr1) {
+
+Do you agree with my feedback or am i wrong? :-)
+Thanks
+
+-- 
+Marcel Brunner
+Friedhofplatz 14 A
+CH-4500 Solothurn
+
+
