@@ -1316,7 +1316,7 @@ class Math_Matrix {/*{{{*/
         if (function_exists("is_a")) {
             return is_object($matrix) && is_a($matrix, "Math_Matrix");
         } else {
-            return is_object($matrix) && (get_class($matrix) == "math_matrix");
+            return is_object($matrix) && (strtolower(get_class($matrix)) == "math_matrix");
         }
     }/*}}}*/
 
