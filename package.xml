@@ -32,6 +32,7 @@
   </notes>
   <filelist>
    <dir name="/" baseinstalldir="Math">
+    <file role="doc">README-Math_Matrix</file>
     <file role="php">Matrix.php</file>
     <dir name="test" role="test">
      <file role="php">instance_methods.php</file>

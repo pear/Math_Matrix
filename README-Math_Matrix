@@ -1,0 +1,7 @@
+This matrix creation/manipulation class has examples of use in the
+'examples' directory, as well unit tests (using PHPUnit) in the 'test'
+direectory.
+
+To generate the API documentaion, run phpDocumentor on the code.
+
+-- Jesus M. Castagnetto
