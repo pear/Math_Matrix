@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package SYSTEM "../package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package>
+ <name>Math_Matrix</name>
+ <summary>Class to represent matrices and matrix operations</summary>
+ <description>
+  Matrices as 2 dimensional arrays of numbers. This class defines methods for
+  matrix objects, as well as static methods to read, write and manipulate
+  matrices, including methods to solve systems of linear equations (with and
+  without iterative error correction).
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>jmcastagnetto</user>
+   <name>Jesus M. Castagnetto</name>
+   <email>jmcastagnetto@php.net</email>
+   <role>lead</role>
+  </maintainer>
+ </maintainers>
+ <release>
+  <license>PHP</license>
+  <version>0.8.0</version>
+  <date>2003-04-15</date>
+  <state>beta</state>
+  <notes>
+   Initial released under PEAR. Reestructured the package so the main class
+   contains both instance and class methods to make things simpler.
+  </notes>
+  <filelist>
+   <dir name="/" baseinstalldir="Math">
+    <file role="php">Matrix.php</file>
+    <file role="php">VectorOp.php</file>
+    <dir name="test" role="test">
+     <file role="php">testMath_Matrix-instance-methods.php</file>
+     <file role="php">testMath_Matrix-static-methods.php</file>
+    </dir>
+   </dir>
+  </filelist>
+ </release>
+ <changelog>
+ </changelog>
+</package>
