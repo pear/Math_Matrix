@@ -22,8 +22,8 @@
 //
 
 require_once 'PHPUnit.php';
-//require_once 'Math/Matrix.php';
-require_once '../Matrix.php';
+require_once 'Math/Matrix.php';
+//require_once '../Matrix.php';
 
 class Math_Matrix_Instance_Methods_Test extends PHPUnit_TestCase {/*{{{*/
     var $m;

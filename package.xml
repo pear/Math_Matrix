@@ -6,10 +6,12 @@
  <name>Math_Matrix</name>
  <summary>Class to represent matrices and matrix operations</summary>
  <description>
-  Matrices as 2 dimensional arrays of numbers. This class defines methods for
-  matrix objects, as well as static methods to read, write and manipulate
-  matrices, including methods to solve systems of linear equations (with and
-  without iterative error correction).
+  Matrices are represented as 2 dimensional arrays of numbers. 
+  This class defines methods for matrix objects, as well as static methods 
+  to read, write and manipulate matrices, including methods to solve systems 
+  of linear equations (with and without iterative error correction).
+
+  Requires the Math_Vector package.
  </description>
  <maintainers>
   <maintainer>
@@ -22,8 +24,8 @@
  <release>
   <license>PHP</license>
   <version>0.8.0</version>
-  <date>2003-04-15</date>
-  <state>beta</state>
+  <date>2003-05-16</date>
+  <state>stable</state>
   <notes>
    Initial released under PEAR. Reestructured the package so the main class
    contains both instance and class methods to make things simpler.
@@ -31,13 +33,19 @@
   <filelist>
    <dir name="/" baseinstalldir="Math">
     <file role="php">Matrix.php</file>
-    <file role="php">VectorOp.php</file>
-    <dir name="tests" role="test">
-     <file role="php">instance-methods.phpt</file>
-     <file role="php">static-methods.phpt</file>
+    <dir name="test" role="test">
+     <file role="php">instance_methods.php</file>
+     <file role="php">static_methods.php</file>
+    </dir>
+    <dir name="examples" role="doc">
+     <file role="php">ex_math_matrix.php</file>
+     <file role="php">data.mat</file>
     </dir>
    </dir>
   </filelist>
+  <deps>
+   <dep type="pkg" rel="has">Math_Vector</dep>
+  </deps>
  </release>
  <changelog>
  </changelog>
