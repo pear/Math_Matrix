@@ -48,6 +48,13 @@
    Reorganized the directories to comply to the current directory organization
    proposal.
 
+   It is recommended to uninstall the older version of Math_Matrix (and
+   Math_Vector) before installing this new release to avoid lingering files
+   (there is also a new release of Math_Vector):
+   $ pear uninstall Math_Matrix Math_Vector
+   $ pear install Math_Vector
+   $ pear install Math_Matrix
+
    Included explicitely the optional dependency on the PHPUnit package version
    0.6.2 or older, as current versions of that package need PHP5.
 ]]>
