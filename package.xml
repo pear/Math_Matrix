@@ -32,9 +32,9 @@
    <dir name="/" baseinstalldir="Math">
     <file role="php">Matrix.php</file>
     <file role="php">VectorOp.php</file>
-    <dir name="test" role="test">
-     <file role="php">testMath_Matrix-instance-methods.php</file>
-     <file role="php">testMath_Matrix-static-methods.php</file>
+    <dir name="tests" role="test">
+     <file role="php">instance-methods.phpt</file>
+     <file role="php">static-methods.phpt</file>
     </dir>
    </dir>
   </filelist>

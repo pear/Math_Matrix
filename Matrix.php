@@ -179,6 +179,7 @@ class Math_Matrix {/*{{{*/
 				if (!is_numeric($data[$i][$j])) {
 					return $errorObj;
                 }
+                $data[$i][$j] = (float) $data[$i][$j];
 				$tmp[] = $data[$i][$j];
                 $eucnorm += $data[$i][$j] * $data[$i][$j];
 			}
@@ -648,7 +649,7 @@ class Math_Matrix {/*{{{*/
 			return PEAR::raiseError('Trace undefined for non-square matrices');
         }
         $trace = 0;
-        for ($i=0; $i < $this->_nrows; $i++) {
+        for ($i=0; $i < $this->_num_rows; $i++) {
             $trace += $this->getElement($i, $i);
         }
         return $trace;
@@ -1096,6 +1097,7 @@ class Math_Matrix {/*{{{*/
      * @see setData()
      */
     function multiply(&$m1) {/*{{{*/
+        $epsilon = 1E-10;
         if (!Math_Matrix::isMatrix($m1)) {
             return PEAR::raiseError ('Wrong parameter, expected a Math_Matrix object');
         }
@@ -1110,6 +1112,10 @@ class Math_Matrix {/*{{{*/
                 $data[$i][$j] = 0;
                 for ($k=0; $k < $nc; $k++) {
                     $data[$i][$j] += $this->getElement($i,$k) * $m1->getElement($k, $j);
+                }
+                // take care of some round-off errors
+                if ($data[$i][$j] <= $epsilon) {
+                    $data[$i][$j] = 0.0;
                 }
             }
         }
@@ -1321,7 +1327,11 @@ class Math_Matrix {/*{{{*/
     function &makeUnit ($size) {/*{{{*/
         for ($i=0; $i<$size; $i++) {
             for ($j=0; $j<$size; $j++) {
-                $data[$i][$j] = (int) ($i == $j);
+                if ($i == $j) {
+                    $data[$i][$j] = (float) 1.0;
+                } else {
+                    $data[$i][$j] = (float) 0.0;
+                }
             }
         }
         return new Math_Matrix($data);

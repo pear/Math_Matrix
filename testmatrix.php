@@ -14,6 +14,7 @@ $m = new Math_Matrix($data);
 echo $m->toString()."\n";
 $det = $m->determinant();
 echo "Determinant = $det\n";
+echo "Trace = ".$m->trace()."\n";
 echo "Euclidean Norm = ".$m->norm()."\n";
 echo "Normalized Determinant = ".$m->normalizedDeterminant()."\n";
 
@@ -50,9 +51,11 @@ $x = Math_Matrix::solve($a, $b);
 echo "\nA\n".$a->toString('%8.4f')."\n";
 echo "B ".$b->toString()."\n";
 echo "Solution ".$x->toString()."\n";
+//print_r($x);
 echo "\nSolving with error correction\n";
 $x = Math_Matrix::solveEC($a, $b);
 echo "EC Solution ".$x->toString()."\n";
+//print_r($x);
 
 // Another set of equations
 
