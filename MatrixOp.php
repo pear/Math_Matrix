@@ -204,7 +204,7 @@ class Math_MatrixOp {/*{{{*/
         return new Math_Matrix($data);
     }/*}}}*/
 
-    function &invert ($m) {
+    function &invert ($m) {/*{{{*/
         if (Math_MatrixOp::isMatrix3x3($m))
             return Math_MatrixOp::_invert3x3($m);
         else if (Math_MatrixOp::isMatrix($m))
@@ -215,12 +215,9 @@ class Math_MatrixOp {/*{{{*/
         else
             return PEAR::raiseError("Inversion implemented only for ".
                         "Math_Matrix objects (or a subclass)");
-    }
+    }/*}}}*/
 
     function &_invert3x3 (&$m) {/*{{{*/
-        
-        if (!Math_MatrixOp::isMatrix3x3($m))
-            return PEAR::raiseError("Inversion implemented only for Math_Matrix3x3 objects");
         $d = $m->determinant();
         if ($d == 0)
             return PEAR::raiseError("Matrix cannot be inverted, determinant = 0");
@@ -257,10 +254,6 @@ class Math_MatrixOp {/*{{{*/
      * @return  mixed   a Math_Matrix object on success, a PEAR_Error object otherwise
      */
     function &_invertNxN(&$mat) {/*{{{*/
-        if (!Math_MatrixOp::isMatrix($mat))
-            return PEAR::raiseError("Inverssion implemented only for Math_Matri objects");
-        if (!$mat->isSquare())
-            return PEAR::raiseError("Matrix must be square, i.e. n(rows) = n(columns)");
         list($n,) = $mat->getSize();
         $data = $mat->getData();
         for ($i=0; $i < $n; $i++) {
