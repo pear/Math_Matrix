@@ -31,7 +31,8 @@
   <notes>
 <![CDATA[
    Fixed some bugs in matrix multiplication reported by John Pye
-   (john@curioussymbols.com) and Marcel Brunner (marcel@palmer.li).
+   (john [at] curioussymbols [dot] com) and 
+   Marcel Brunner (marcel [at] palmer [dot] li).
 
    Fixed some minor documentation incosistencies.
    
