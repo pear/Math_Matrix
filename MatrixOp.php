@@ -204,32 +204,82 @@ class Math_MatrixOp {/*{{{*/
         return new Math_Matrix($data);
     }/*}}}*/
 
-    function &inverse(&$m) {/*{{{*/
+    function &invert ($m) {
+        if (Math_MatrixOp::isMatrix3x3($m))
+            return Math_MatrixOp::_invert3x3($m);
+        else if (Math_MatrixOp::isMatrix($m))
+            if ($m->isSquare())
+                return Math_MatrixOp::_invertNxN($m);
+            else
+                return PEAR::raiseError("Matrix must be square, i.e. n(rows) = n(columns)");
+        else
+            return PEAR::raiseError("Inversion implemented only for ".
+                        "Math_Matrix objects (or a subclass)");
+    }
+
+    function &_invert3x3 (&$m) {/*{{{*/
+        
         if (!Math_MatrixOp::isMatrix3x3($m))
-            return PEAR::raiseError("Inverse implemented only for Math_Matrix3x3 objects");
+            return PEAR::raiseError("Inversion implemented only for Math_Matrix3x3 objects");
         $d = $m->determinant();
         if ($d == 0)
             return PEAR::raiseError("Matrix cannot be inverted, determinant = 0");
-        $data[0][0] = ($m->getElement(1,1) * $m->getElement(2,2) -
-                        $m->getElement(1,2) * $m->getElement(2,1)) / $d;
-        $data[0][1] = -1 * ($m->getElement(0,1) * $m->getElement(2,2) -
-                        $m->getElement(0,2) * $m->getElement(2,0)) / $d;
-        $data[0][2] = ($m->getElement(0,1) * $m->getElement(1,2) -
-                        $m->getElement(0,2) * $m->getElement(1,1)) / $d;
-        $data[1][0] = -1 *($m->getElement(1,0) * $m->getElement(2,2) -
-                        $m->getElement(1,2) * $m->getElement(2,0)) / $d;
-        $data[1][1] = ($m->getElement(0,0) * $m->getElement(2,2) -
-                        $m->getElement(0,2) * $m->getElement(2,0)) / $d;
-        $data[1][2] = -1 *($m->getElement(0,0) * $m->getElement(1,2) -
-                        $m->getElement(0,2) * $m->getElement(1,0)) / $d;
-        $data[2][0] = ($m->getElement(1,0) * $m->getElement(2,1) -
-                        $m->getElement(1,1) * $m->getElement(2,0)) / $d;
-        $data[2][1] = -1 *($m->getElement(0,0) * $m->getElement(2,1) -
-                        $m->getElement(0,1) * $m->getElement(2,0)) / $d;
-        $data[2][2] = ($m->getElement(0,0) * $m->getElement(1,1) -
-                        $m->getElement(0,1) * $m->getElement(1,0)) / $d;
-        return new Matrix3x3($data);
+        $tdat = $m->getData();
+        $data[0][0] = ($tdat[1][1] * $tdat[2][2] - $tdat[1][2] * $tdat[2][1]) / $d;
+        $data[0][1] = -1 * ($tdat[0][1] * $tdat[2][2] - $tdat[0][2] * $tdat[2][1]) / $d;
+        $data[0][2] = ($tdat[0][1] * $tdat[1][2] - $tdat[0][2] * $tdat[1][1]) / $d;
+        $data[1][0] = -1 *($tdat[1][0] * $tdat[2][2] - $tdat[1][2] * $tdat[2][0]) / $d;
+        $data[1][1] = ($tdat[0][0] * $tdat[2][2] - $tdat[0][2] * $tdat[2][0]) / $d;
+        $data[1][2] = -1 *($tdat[0][0] * $tdat[1][2] - $tdat[0][2] * $tdat[1][0]) / $d;
+        $data[2][0] = ($tdat[1][0] * $tdat[2][1] - $tdat[1][1] * $tdat[2][0]) / $d;
+        $data[2][1] = -1 *($tdat[0][0] * $tdat[2][1] - $tdat[0][1] * $tdat[2][0]) / $d;
+        $data[2][2] = ($tdat[0][0] * $tdat[1][1] - $tdat[0][1] * $tdat[1][0]) / $d;
+        return new Math_Matrix3x3($data);
         
+    }/*}}}*/
+
+    /**
+     * Calculates the inverse for a N x N matrix
+     * Uses the Shipley-Coleman algorithm
+     * For a matrix n x n :
+     *    for all i < n
+     *       e'(i,i) = 1/e(i,j)
+     *       for all m != i
+     *          e'(m,i) = e(m,i) * e'(i,i)
+     *       for all m != i
+     *          for all p != i
+     *             e'(m,p) = e(m,p) - e'(m,i) * e(i,p)
+     *       for all p != i
+     *          e'(i,p) = -1 * e'(i,i) * e(i,p)
+     *
+     * @access  private
+     * @param   object  Math_Matrix $mat
+     * @return  mixed   a Math_Matrix object on success, a PEAR_Error object otherwise
+     */
+    function &_invertNxN(&$mat) {/*{{{*/
+        if (!Math_MatrixOp::isMatrix($mat))
+            return PEAR::raiseError("Inverssion implemented only for Math_Matri objects");
+        if (!$mat->isSquare())
+            return PEAR::raiseError("Matrix must be square, i.e. n(rows) = n(columns)");
+        list($n,) = $mat->getSize();
+        $data = $mat->getData();
+        for ($i=0; $i < $n; $i++) {
+            if ($data[$i][$i] == 0)
+                return PEAR::raiseError("Error, cannot invert matrix. ".
+                                "Division by zero in element($i, $i)");
+            $data[$i][$i] = 1/$data[$i][$i];
+            for ($m=0; $m < $n; $m++)
+                if ($m != $i)
+                    $data[$m][$i] = $data[$m][$i] * $data[$i][$i];
+            for ($m=0; $m < $n; $m++)
+                for ($p=0; $p < $n; $p++)
+                    if ($m != $i && $p != $i)
+                        $data[$m][$p] = $data[$m][$p] - $data[$m][$i] * $data[$i][$p];
+            for ($p=0; $p < $n; $p++)
+                if ($p != $i)
+                    $data[$i][$p] = -1 * $data[$i][$i] * $data[$i][$p];
+        }
+        return new Math_Matrix($data);
     }/*}}}*/
 
     function &swapRows ($m1, $row1, $row2) {/*{{{*/

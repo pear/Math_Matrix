@@ -18,12 +18,12 @@ class Math_Matrix3x3 extends Math_Matrix {/*{{{*/
         if ($this->isEmpty())
             return PEAR::raiseError('Matrix has not been populated');
         else
-            return (  $this->geElement(0,0) * $this->getElement(1,1) * $this->getElement(2,2) 
-                    - $this->geElement(0,0) * $this->getElement(2,1) * $this->getElement(1,2) 
-                    + $this->geElement(1,0) * $this->getElement(2,1) * $this->getElement(0,2) 
-                    - $this->geElement(1,0) * $this->getElement(0,1) * $this->getElement(2,2) 
-                    + $this->geElement(2,0) * $this->getElement(0,1) * $this->getElement(1,2) 
-                    - $this->geElement(2,0) * $this->getElement(1,1) * $this->getElement(0,2) );
+            return (  $this->getElement(0,0) * $this->getElement(1,1) * $this->getElement(2,2) 
+                    - $this->getElement(0,0) * $this->getElement(2,1) * $this->getElement(1,2) 
+                    + $this->getElement(1,0) * $this->getElement(2,1) * $this->getElement(0,2) 
+                    - $this->getElement(1,0) * $this->getElement(0,1) * $this->getElement(2,2) 
+                    + $this->getElement(2,0) * $this->getElement(0,1) * $this->getElement(1,2) 
+                    - $this->getElement(2,0) * $this->getElement(1,1) * $this->getElement(0,2) );
     }/*}}}*/
 }/*}}}*/
 
