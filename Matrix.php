@@ -201,6 +201,17 @@ class Math_Matrix {/*{{{*/
         return $this->_data[$row][$col];
     }/*}}}*/
 
+    function trace() {
+		if ($this->isEmpty())
+			return PEAR::raiseError('Matrix has not been populated');
+        if (!$this->isSquare())
+			return PEAR::raiseError('Trace undefined for non-square matrices');
+        $trace = 0;
+        for ($i=0; $i < $this->_nrows; $i++)
+            $trace += $this->getElement($i, $i);
+        return $trace;
+    }
+    
     function determinant() {
 		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
