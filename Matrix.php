@@ -175,14 +175,14 @@ class Math_Matrix {/*{{{*/
 	 * @access	public
 	 * @return	mixed	an array of integers on success, a PEAR_Error object otherwise 
 	 */
-    function getSize() {
+    function getSize() {/*{{{*/
 		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
 		else
 			return array($this->_num_rows, $this->_num_cols);
-    }
+    }/*}}}*/
 
-    function setElement($row, $col, $value) {
+    function setElement($row, $col, $value) {/*{{{*/
 		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($row >= $this->_num_rows && $col >= $this->_num_cols)
@@ -191,14 +191,49 @@ class Math_Matrix {/*{{{*/
             return PEAR::raiseError('Incorrect value, expecting a number');
         $this->_data[$row][$col] = $value;
         return true;
-    }
+    }/*}}}*/
 
-    function getElement($row, $col) {
+    function getElement($row, $col) {/*{{{*/
 		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($row >= $this->_num_rows && $col >= $this->_num_cols)
             return PEAR::raiseError('Incorrect row and column values');
         return $this->_data[$row][$col];
+    }/*}}}*/
+
+    function determinant() {
+		if ($this->isEmpty())
+			return PEAR::raiseError('Matrix has not been populated');
+        if (!$this->isSquare())
+			return PEAR::raiseError('Determinant undefined for non-square matrices');
+        return _calcDet($arr);
+    }
+
+    function _calcDet($arr) {
+        $n = count($arr);
+        $sum = 0;
+        $tarr = array();
+        if ($n == 1)
+            return $arr[0][0];
+        else if ($n == 2)
+            return ($arr[0][0] * $arr[1][1] -
+                    $arr[1][0] * $arr[0][1]);
+        else 
+            for ($i=0; $i < $n; $i++) {
+                if ($arr[0][$i] != 0)
+                    for ($j=1; $j < $n; $j++)
+                        for ($k=2; $k < $n; $k++)
+                            if ($k > $i)
+                                $tarr[$j - 1][$k - 1] = $arr[$j][$k];
+                            else if ($k < $i)
+                                $tarr[$j - 1][$k] = $arr[$j][$k];
+                    $factor = $arr[1][$i] * $this->_calcDet($tarr);
+                    if ($i % 2 == 0)
+                        $sum -=  $factor;
+                    else
+                        $sum += $factor;
+            }
+        return sum;
     }
 
     function getRow ($row) {/*{{{*/
