@@ -1,0 +1,2 @@
+- Test performance of using arrays of arrays vs a unidimensional array with a
+stride
