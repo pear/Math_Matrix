@@ -54,6 +54,50 @@ echo "\nSolving with error correction\n";
 $x = Math_Matrix::solveEC($a, $b);
 echo "EC Solution ".$x->toString()."\n";
 
+// Another set of equations
+
+/*
+$adata = array(
+            array(1,2,3),
+            array(2,-1,1),
+            array(3,0,-1)
+        );
+
+$bdata = array(9,8,3);
+
+// solution: <2, -1, 3>
+*/
+
+/*
+$adata = array(
+            array(1,1,1),
+            array(1,-2,2),
+            array(1,2,-1)
+        );
+$bdata = array(0,4,2);
+// solution: <4,-2,-2>
+*/
+
+$adata = array(
+            array(-4,3,-4,-1),
+            array(-2,0,-5,3),
+            array(-1,-1,-3,-4),
+            array(-3,2,4,-1)
+        );
+$bdata = array(-37,-20,-27,7);
+// solution: <2,-2,5,3>
+
+echo "\nSolving another Ax = b\n";
+$a = new Math_Matrix($adata);
+$b = new Math_Vector($bdata);
+$x = Math_Matrix::solve($a, $b);
+echo "\nA\n".$a->toString('%8.4f')."\n";
+echo "B ".$b->toString()."\n";
+echo "Solution ".$x->toString()."\n";
+echo "\nSolving with error correction\n";
+$x = Math_Matrix::solveEC($a, $b);
+echo "EC Solution ".$x->toString()."\n";
+
 /*
 echo "\n";
 $data = array (
