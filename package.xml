@@ -12,6 +12,8 @@
   of linear equations (with and without iterative error correction).
 
   Requires the Math_Vector package.
+
+  For running the unit tests you will need PHPUnit version 0.6.2 or older.
  </description>
  <maintainers>
   <maintainer>
@@ -23,31 +25,65 @@
  </maintainers>
  <release>
   <license>PHP</license>
-  <version>0.8.0</version>
-  <date>2003-05-16</date>
-  <state>stable</state>
+  <version>0.8.5</version>
+  <date>2003-11-01</date>
+  <state>beta</state>
   <notes>
-   Initial released under PEAR. Reestructured the package so the main class
-   contains both instance and class methods to make things simpler.
+<![CDATA[
+   Fixed some bugs in matrix multiplication reported by John Pye
+   (john@curioussymbols.com) and Marcel Brunner (marcel@palmer.li).
+
+   Fixed some minor documentation incosistencies.
+   
+   Modified the setData() method to accept a Math_Matrix object or
+   an array of arrays of numbers.
+
+   Added the setZeroThreshold() and getZeroThreshold() to set and get the
+   value used as upper bound to minimize round-off errors.
+
+   Added also two static methods to generate famous matrices:
+   Math_Matrix::makeHilbert() for a square Hilber matrix, and 
+   Math_Matrix::makeHankel() for m by n Hankel matrix.
+
+   Reorganized the directories to comply to the current directory organization
+   proposal.
+
+   Included explicitely the optional dependency on the PHPUnit package version
+   0.6.2 or older, as current versions of that package need PHP5.
+]]>
   </notes>
   <filelist>
    <dir name="/" baseinstalldir="Math">
-    <file role="doc">README-Math_Matrix</file>
     <file role="php">Matrix.php</file>
-    <dir name="test" role="test">
-     <file role="php">instance_methods.php</file>
-     <file role="php">static_methods.php</file>
+    <dir name="docs" role="doc">
+     <file role="doc">README-Math_Matrix</file>
     </dir>
-    <dir name="examples" role="doc">
-     <file role="php">ex_math_matrix.php</file>
-     <file role="php">data.mat</file>
+    <dir name="tests" role="test">
+     <file role="php">test_Math_Matrix_instance_methods.php</file>
+     <file role="php">test_Math_Matrix_static_methods.php</file>
+     <dir name="examples" role="test">
+      <file role="php">ex_math_matrix.php</file>
+      <file role="php">data.mat</file>
+     </dir>
     </dir>
    </dir>
   </filelist>
   <deps>
    <dep type="pkg" rel="has">Math_Vector</dep>
+   <dep type="pkg" rel="le" version="0.6.2" optional="yes">PHPUnit</dep>
   </deps>
  </release>
  <changelog>
+  <release>
+   <version>0.8.0</version>
+   <date>2003-05-16</date>
+   <notes>
+    Initial released under PEAR. Reestructured the package so the main class
+    contains both instance and class methods to make things simpler.
+   </notes>
+   <deps>
+    <dep type="pkg" rel="has">Math_Vector</dep>
+   </deps>
+  </release>
  </changelog>
 </package>

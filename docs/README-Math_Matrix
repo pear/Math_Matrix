@@ -1,0 +1,10 @@
+$Id$
+
+This matrix creation/manipulation class has examples of use as 
+well as unit tests (using PHPUnit) in the 'tests' directory.
+
+The unit tests require PHPunit 0.6.2
+
+To generate the API documentation, run phpDocumentor on the code.
+
+-- Jesus M. Castagnetto

@@ -93,6 +93,31 @@ class Math_Matrix_Static_Methods_Test extends PHPUnit_TestCase {
         $this->assertEquals($data, $q->getData());
     }
 
+    function testMakeHilbert() {
+        $data = array (
+                    array(1, 1/2, 1/3),
+                    array(1/2, 1/3, 1/4),
+                    array(1/3, 1/4, 1/5)
+                );
+        $res = new Math_Matrix($data);
+        $hilb = Math_Matrix::makeHilbert(3);
+        $this->assertEquals($res->toString(), $hilb->toString());
+    }
+
+    function testMakeHankel() {
+        $data = array(
+                    array(1,2,3,3),
+                    array(2,3,3,5),
+                    array(3,3,5,7)
+                );
+        $c = array(1,2,3);
+        $r = array(1,3,5,7);
+        
+        $res = new Math_Matrix($data);
+        $hankel = Math_Matrix::makeHankel($c, $r);
+        $this->assertEquals($res->toString(), $hankel->toString());
+    }
+
     function testSolve() {
         $adata = array(
             array(-4.0,3.0,-4.0,-1.0),
@@ -102,11 +127,11 @@ class Math_Matrix_Static_Methods_Test extends PHPUnit_TestCase {
         );
         $bdata = array(-37.0,-20.0,-27.0,7.0);
         $res = array(2.0,-2.0,5.0,3.0);
+        $resVector = new Math_Vector($res);
         $a = new Math_Matrix($adata);
         $b = new Math_Vector($bdata);
         $x = Math_Matrix::solve($a, $b);
-        $t = $x->getTuple();
-        $this->assertEquals($res, $t->data);
+        $this->assertEquals($resVector->toString(), $x->toString());
     }
 
     function testSolveEC() {
@@ -118,11 +143,11 @@ class Math_Matrix_Static_Methods_Test extends PHPUnit_TestCase {
         );
         $bdata = array(-37.0,-20.0,-27.0,7.0);
         $res = array(2.0,-2.0,5.0,3.0);
+        $resVector = new Math_Vector($res);
         $a = new Math_Matrix($adata);
         $b = new Math_Vector($bdata);
         $x = Math_Matrix::solveEC($a, $b);
-        $t = $x->getTuple();
-        $this->assertEquals($res, $t->data);
+        $this->assertEquals($resVector->toString(), $x->toString());
     }
 
 }

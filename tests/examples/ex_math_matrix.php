@@ -7,6 +7,7 @@
  */
 
 require_once 'Math/Matrix.php';
+//require_once '../Matrix.php';
 
 $data = array(
             array(1.0,2.0,3.0,4.0),
@@ -106,6 +107,27 @@ echo "Solution ".$x->toString()."\n";
 echo "\nSolving with error correction\n";
 $x = Math_Matrix::solveEC($a, $b);
 echo "EC Solution ".$x->toString()."\n";
+
+$Adata = array(
+            array(1,1,2),
+            array(2,3,4)
+        );
+
+$Bdata = array(
+            array(-1,3),
+            array(-3,4),
+            array(-5,2)
+        );
+
+$A = new Math_Matrix($Adata);
+$A1 = $A->clone();
+$B = new Math_Matrix($Bdata);
+$B1 = $B->clone();
+
+$A1->multiply($B1);
+$B->multiply($A);
+echo $A1->toString()."\n";
+echo $B->toString()."\n";
 
 /*
 echo "\n";

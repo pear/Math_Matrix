@@ -133,11 +133,45 @@ class Math_Matrix_Instance_Methods_Test extends PHPUnit_TestCase {/*{{{*/
         $p = $q->clone();
         $q->invert();
         $p->multiply($q);
-        $this->assertEquals($unit->getData(), $p->getData());
+        $this->assertEquals($unit->toString(), $p->toString());
     }
 
     function testMultiply() {
-        $this->testInvert();
+        $Adata = array(
+                    array(1,1,2),
+                    array(2,3,4)
+                );
+
+        $Bdata = array(
+                    array(-1,3),
+                    array(-3,4),
+                    array(-5,2)
+                );
+
+        $ABdata = array(
+                    array(-14, 11),
+                    array(-31, 26)
+                );
+
+        $BAdata = array(
+                    array(5,8,10),
+                    array(5,9,10),
+                    array(-1,1,-2)
+                );
+
+        $A = new Math_Matrix($Adata);
+        $A1 = $A->clone();
+        $B = new Math_Matrix($Bdata);
+        $B1 = $B->clone();
+
+        $A1->multiply($B);
+        $B1->multiply($A);
+
+        $AB = new Math_Matrix($ABdata);
+        $BA = new Math_Matrix($BAdata);
+
+        $this->assertEquals($A1->toString(), $AB->toString());
+        $this->assertEquals($B1->toString(), $BA->toString());
     }
 
     function testGetSubMatrix() {
