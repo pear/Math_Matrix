@@ -21,6 +21,7 @@
 // $Id$
 //
 
+require_once "Math/Vector/VectorOp.php";
 
 /**
  * Matrix operations class
@@ -70,6 +71,14 @@ class Math_MatrixOp {/*{{{*/
             return is_a($matrix, "Math_Matrix");
         else
             return (get_class($matrix) == "math_matrix");
+    }/*}}}*/
+
+    function isMatrix2x2 (&$matrix) {/*{{{*/
+        return (get_class($matrix) == "math_matrix2x2");
+    }/*}}}*/
+
+    function isMatrix3x3 (&$matrix) {/*{{{*/
+        return (get_class($matrix) == "math_matrix3x3");
     }/*}}}*/
 
     function &makeMatrix ($nrows, $ncols, $value) {/*{{{*/
@@ -127,6 +136,55 @@ class Math_MatrixOp {/*{{{*/
         return new Math_Matrix($out);
     }/*}}}*/
 
+    function &multiply(&$m1, &$m2) {/*{{{*/
+        if (!Math_MatrixOp::isMatrix($m1) || !Math_MatrixOp::isMatrix($m2))
+            return PEAR::raiseError ("Wrong parameters, expected 2 Math_Matrix objects");
+        list($nr1, $nc1) = $m1->getSize();
+        list($nr2, $nc2) = $m2->getSize();
+        if ($nc1 != $nr2)
+            return PEAR::raiseError("Incompatible sizes columns in m1 must be the same as rows in m2");
+        for ($i=0; $i < $nr1; $i++) {
+            $row = $m1->getRow($i);
+            for ($j=0; $j < $nc2; $j++) {
+                $col = $m2->getCol($j);
+                $n = count($col);
+                $sum = 0;
+                for ($k=0; $k < $n; $k++)
+                    $sum += $row[$k] * $col[$k];
+                $res[$i][$j] = $sum;
+            }
+        }
+        $Class = get_class($m1);
+        return new $Class($res);
+    }/*}}}*/
+
+    function &vectorMultiply(&$m1, &$v1) {/*{{{*/
+        // check that the vector classes are defined
+        $classes = get_declared_classes();
+        if (!in_array("math_vector", $classes) || !in_array("math_vectopop", $classes))
+            return PEAR::raiseError ("Classes Math_Vector and Math_VectorOp undefined". 
+                                " add \"require_once 'Math/Vector/Vector.php'\" to your script");
+        if (!Math_MatrixOp::isMatrix($m1) || !Math_VectorOp::isVector($v1))
+            return PEAR::raiseError ("Wrong parameters, expected a Math_Matrix object". 
+                        " and a Math_Vector object");
+        list($nr1, $nc1) = $m1->getSize();
+        $nv = $v1->length();
+        if ($nc1 != $nv)
+            return PEAR::raiseError("Incompatible sizes columns in matrix must ".
+                        "be the same as the number of elements in the vector");
+        for ($i=0; $i < $nr1; $i++) {
+            $row = $m1->getRow($i);
+            for ($j=0; $j < $nv; $j++) {
+                $e = $v1->get($j);
+                $sum = 0;
+                for ($k=0; $k < $nc1; $k++)
+                    $sum += $row[$k] * $e;
+                $res[$j] = $sum;
+            }
+        }
+        return new Math_Vector($res);
+    }/*}}}*/
+
     function &getSubMatrix (&$m1, $tlrow, $tlcol, $nrows, $ncols) {/*{{{*/
         if (!Math_MatrixOp::isMatrix($m1) || !is_numeric($tlrow) || !is_numeric($tlcol)
             || !is_numeric($nrows) || !is_numeric($ncols))
@@ -144,6 +202,34 @@ class Math_MatrixOp {/*{{{*/
         for ($i=0; $i < $nc; $i++)
             $data[$i] = $m1->getCol($i);
         return new Math_Matrix($data);
+    }/*}}}*/
+
+    function &inverse(&$m) {/*{{{*/
+        if (!Math_MatrixOp::isMatrix3x3($m))
+            return PEAR::raiseError("Inverse implemented only for Math_Matrix3x3 objects");
+        $d = $m->determinant();
+        if ($d == 0)
+            return PEAR::raiseError("Matrix cannot be inverted, determinant = 0");
+        $data[0][0] = ($m->getElement(1,1) * $m->getElement(2,2) -
+                        $m->getElement(1,2) * $m->getElement(2,1)) / $d;
+        $data[0][1] = -1 * ($m->getElement(0,1) * $m->getElement(2,2) -
+                        $m->getElement(0,2) * $m->getElement(2,0)) / $d;
+        $data[0][2] = ($m->getElement(0,1) * $m->getElement(1,2) -
+                        $m->getElement(0,2) * $m->getElement(1,1)) / $d;
+        $data[1][0] = -1 *($m->getElement(1,0) * $m->getElement(2,2) -
+                        $m->getElement(1,2) * $m->getElement(2,0)) / $d;
+        $data[1][1] = ($m->getElement(0,0) * $m->getElement(2,2) -
+                        $m->getElement(0,2) * $m->getElement(2,0)) / $d;
+        $data[1][2] = -1 *($m->getElement(0,0) * $m->getElement(1,2) -
+                        $m->getElement(0,2) * $m->getElement(1,0)) / $d;
+        $data[2][0] = ($m->getElement(1,0) * $m->getElement(2,1) -
+                        $m->getElement(1,1) * $m->getElement(2,0)) / $d;
+        $data[2][1] = -1 *($m->getElement(0,0) * $m->getElement(2,1) -
+                        $m->getElement(0,1) * $m->getElement(2,0)) / $d;
+        $data[2][2] = ($m->getElement(0,0) * $m->getElement(1,1) -
+                        $m->getElement(0,1) * $m->getElement(1,0)) / $d;
+        return new Matrix3x3($data);
+        
     }/*}}}*/
 
     function &swapRows ($m1, $row1, $row2) {/*{{{*/

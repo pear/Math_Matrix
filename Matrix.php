@@ -164,7 +164,7 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function isEmpty() {/*{{{*/
-        return ( $this->_data == null );
+        return ( empty($this->_data) || is_null($this->_data) );
     }/*}}}*/
 
 
@@ -176,14 +176,14 @@ class Math_Matrix {/*{{{*/
 	 * @return	mixed	an array of integers on success, a PEAR_Error object otherwise 
 	 */
     function getSize() {
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
 		else
 			return array($this->_num_rows, $this->_num_cols);
     }
 
     function setElement($row, $col, $value) {
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($row >= $this->_num_rows && $col >= $this->_num_cols)
             return PEAR::raiseError('Incorrect row and column values');
@@ -194,7 +194,7 @@ class Math_Matrix {/*{{{*/
     }
 
     function getElement($row, $col) {
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($row >= $this->_num_rows && $col >= $this->_num_cols)
             return PEAR::raiseError('Incorrect row and column values');
@@ -202,7 +202,7 @@ class Math_Matrix {/*{{{*/
     }
 
     function getRow ($row) {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($row >= $this->_num_rows)
             return PEAR::raiseError('Incorrect row value');
@@ -210,7 +210,7 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function getCol ($col) {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($col >= $this->_num_cols)
             return PEAR::raiseError('Incorrect column value');
@@ -220,7 +220,7 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function setRow ($row, $arr) {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($row >= $this->_num_rows)
             return PEAR::raiseError('Incorrect row value');
@@ -234,7 +234,7 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function setCol ($col, $arr) {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         if ($col >= $this->_num_cols)
             return PEAR::raiseError('Incorrect column value');
@@ -254,35 +254,35 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function getData () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
 		else
 			return $this->_data;
     }/*}}}*/
     
     function getMin () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
 		else
             return $this->_min;
     }/*}}}*/
     
     function getMax () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
 		else
             return $this->_max;
     }/*}}}*/
 
     function getMinMax () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
 		else
             return array ($this->_min, $this->_max);
     }/*}}}*/
     
     function getValueIndex ($val) {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         for ($i=0; $i < $this->_num_rows; $i++)
             for ($j=0; $j < $this->_num_cols; $j++)
@@ -292,33 +292,33 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function getMinIndex () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         return $this->getValueIndex($this->_min);
     }/*}}}*/
 
     function getMaxIndex () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         return $this->getValueIndex($this->_max);
     }/*}}}*/
 
     function getMinMaxIndex () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         else
             return array_merge($this->getMinIndex(), $this->getMaxIndex());
     }/*}}}*/
 
     function isSquare () {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         else
             return $this->_square;
     }/*}}}*/
     
     function toString ($format="%4s") {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         $out = "";
         for ($i=0; $i < $this->_num_rows; $i++) {
@@ -330,7 +330,7 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     function toHTML() {/*{{{*/
-		if (is_null($this->_data))
+		if ($this->isEmpty())
 			return PEAR::raiseError('Matrix has not been populated');
         $out = "<table border>\n\t<caption align=\"top\"><b>Matrix</b>";
         $out .= "</caption>\n\t<tr align=\"center\">\n\t\t<th>";
@@ -347,7 +347,7 @@ class Math_Matrix {/*{{{*/
         return $out."\n</table>\n";
     }/*}}}*/
     
-} // end of Math_Matrix class/*}}}*/
+} // end of Math_Matrix class /*}}}*/
 
 // vim: ts=4:sw=4:et:
 // vim6: fdl=1:
