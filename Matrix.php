@@ -25,13 +25,15 @@ require_once 'PEAR.php';
 require_once 'Math/Vector/Vector.php';
 
 /**
- * Defines a matrix object, conceptualized as an array of arrays such that:
+ * Defines a matrix object.
+ *
+ * A matrix is implemented as an array of arrays such that:
  *
  * <pre>
- * [0][0] [0][1] [0][2] ... [0][M]<br>
- * [1][0] [1][1] [1][2] ... [1][M]<br>
- * ...<br>
- * [N][0] [n][1] [n][2] ... [n][M]<br>
+ * [0][0] [0][1] [0][2] ... [0][M]
+ * [1][0] [1][1] [1][2] ... [1][M]
+ * ...
+ * [N][0] [n][1] [n][2] ... [n][M]
  * </pre>
  *
  * i.e. N rows, M colums
@@ -47,10 +49,13 @@ class Math_Matrix {/*{{{*/
 
 	// Properties /*{{{*/
 	
+    /**#@+
+     * @access private
+     */
+    
     /**
      * Contains the array of arrays defining the matrix
      *
-	 * @access	private
      * @var     array
      * @see     getData()
      */
@@ -59,7 +64,6 @@ class Math_Matrix {/*{{{*/
     /**
      * The number of rows in the matrix
      *
-	 * @access	private
      * @var     integer
      * @see     getSize()
      */
@@ -68,17 +72,27 @@ class Math_Matrix {/*{{{*/
     /**
      * The number of columns in the matrix
      *
-	 * @access	private
      * @var     integer
      * @see     getSize()
      */
     var $_num_cols = null;
 
     /**
+     * A flag indicating if the matrix is square
+     * i.e. if $this->_num_cols == $this->_num_rows
+     * 
+     * @var     boolean
+     * @see     isSquare()
+     */
+    var $_square = false;
+
+    /**#@+
+     * @access private
+     * @var    float
+     */
+    /**
      * The smallest value of all matrix cells
      *
-	 * @access	private
-     * @var     float
      * @see     getMin()
      * @see     getMinMax()
      */
@@ -87,29 +101,14 @@ class Math_Matrix {/*{{{*/
     /**
      * The biggest value of all matrix cells
      *
-	 * @access	private
-     * @var     float
      * @see     getMax()
      * @see     getMinMax()
      */
     var $_max = null;
-
-    /**
-     * A flag indicating if the matrix is square
-     * i.e. if $this->_num_cols == $this->_num_rows
-     * 
-	 * @access	private
-     * @var     boolean
-     * @see     isSquare()
-     */
-    var $_square = false;
-
-
+    
     /**
      * The Euclidean norm for the matrix: sqrt(sum(e[i][j]^2))
      *
-     * @access private
-     * @var float
      * @see norm()
      */
     var $_norm = null;
@@ -117,8 +116,6 @@ class Math_Matrix {/*{{{*/
     /**
      * The matrix determinant
      *
-     * @access private
-     * @var float
      * @see determinant()
      */
     var $_det = null;
@@ -126,8 +123,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Cutoff error used to test for singular or ill-conditioned matrices
      *
-     * @access private
-     * @var float
      * @see determinant();
      * @see invert()
      */
@@ -135,10 +130,13 @@ class Math_Matrix {/*{{{*/
 
     /*}}}*/
 
+    /**#@+
+     * @access  public
+     */
+
     /**
      * Constructor for the matrix object
      * 
-     * @access  public
      * @param   array|Math_Matrix   $data a numeric array of arrays of a Math_Matrix object
 	 * @return	object	Math_Matrix
      * @see     $_data
@@ -157,7 +155,6 @@ class Math_Matrix {/*{{{*/
      * contains the same number of colums (e.g. arrays of the
      * same size)
      *
-     * @access  public
      * @param   array   $data array of arrays of numbers or a valid Math_Matrix object
 	 * @return	boolean|PEAR_Error	true on success, a PEAR_Error object otherwise
      */
@@ -206,7 +203,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the array of arrays.
      *
-     * @access public
      * @return array|PEAR_Error an array of array of numbers on success, a PEAR_Error otherwise
      */
     function getData () {/*{{{*/
@@ -237,7 +233,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the value of the upper bound used to minimize round off errors
      *
-     * @access public
      * @return float
      */
     function getZeroThreshold() {/*{{{*/
@@ -247,7 +242,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Checks if the matrix has been initialized.
      *
-     * @access public
      * @return boolean TRUE on success, FALSE otherwise
      */
     function isEmpty() {/*{{{*/
@@ -258,7 +252,6 @@ class Math_Matrix {/*{{{*/
 	/**
 	 * Returns an array with the number of rows and columns in the matrix
 	 *
-	 * @access	public
 	 * @return	array|PEAR_Error	an array of integers on success, a PEAR_Error object otherwise 
 	 */
     function getSize() {/*{{{*/
@@ -271,7 +264,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Checks if it is a square matrix (i.e. num rows == num cols)
      *
-     * @access public
      * @return boolean TRUE on success, FALSE otherwise
      */
     function isSquare () {/*{{{*/
@@ -287,7 +279,6 @@ class Math_Matrix {/*{{{*/
      *
      * Euclidean norm = sqrt( sum( e[i][j]^2 ) )
      * 
-     * @access public
      * @return float|PEAR_Error a number on success, a PEAR_Error otherwise
      */
     function norm() {/*{{{*/
@@ -301,7 +292,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns a new Math_Matrix object with the same data as the current one
      *
-     * @access public
      * @return object Math_Matrix|PEAR_Error a Math_Matrix objects on succes, a
      *                                PEAR_Error otherwise.
      */
@@ -320,7 +310,6 @@ class Math_Matrix {/*{{{*/
      * @param integer $row
      * @param integer $col
      * @param numeric $value
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
     function setElement($row, $col, $value) {/*{{{*/
@@ -342,7 +331,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $row
      * @param integer $col
-     * @access public
      * @return number|PEAR_Error a number on success, a PEAR_Error otherwise
      */
     function getElement($row, $col) {/*{{{*/
@@ -363,7 +351,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $row
      * @param optional boolean $asVector whether to return a Math_Vector or a simple array. Default = false.
-     * @access public
      * @return array|Math_Vector|PEAR_Error an array of numbers or a Math_Vector on success, a PEAR_Error otherwise
      */
     function getRow ($row, $asVector = false) {/*{{{*/
@@ -394,7 +381,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $row index of the row
      * @param array $arr array of numbers
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
     function setRow ($row, $arr) {/*{{{*/
@@ -425,7 +411,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $col
      * @param optional boolean $asVector whether to return a Math_Vector or a simple array. Default = false.
-     * @access public
      * @return array|Math_Vector|PEAR_Error an array of numbers or a Math_Vector on success, a PEAR_Error otherwise
      */
     function getCol ($col, $asVector=false) {/*{{{*/
@@ -459,7 +444,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $col index of the column
      * @param array $arr array of numbers
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
     function setCol ($col, $arr) {/*{{{*/
@@ -491,7 +475,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $i
      * @param integer $j
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
     function swapRows($i, $j) {/*{{{*/
@@ -519,7 +502,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $i
      * @param integer $j
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
     function swapCols($i, $j) {/*{{{*/
@@ -547,7 +529,6 @@ class Math_Matrix {/*{{{*/
      *
      * @param integer $row index of row
      * @param integer $col index of column
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
     function swapRowCol ($row, $col) {/*{{{*/
@@ -576,7 +557,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the minimum value of the elements in the matrix
      *
-     * @access public
      * @return number|PEAR_Error a number on success, a PEAR_Error otherwise
      */
     function getMin () {/*{{{*/
@@ -590,7 +570,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the maximum value of the elements in the matrix
      *
-     * @access public
      * @return number|PEAR_Error a number on success, a PEAR_Error otherwise
      */
     function getMax () {/*{{{*/
@@ -605,7 +584,6 @@ class Math_Matrix {/*{{{*/
      * Gets the position of the first element with the given value
      *
      * @param numeric $val
-     * @access public
      * @return array|PEAR_Error an array of two numbers on success, FALSE if value is not found, and PEAR_Error otherwise
      */
     function getValueIndex ($val) {/*{{{*/
@@ -625,7 +603,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Gets the position of the element with the minimum value
      *
-     * @access public
      * @return array|PEAR_Error an array of two numbers on success, FALSE if value is not found, and PEAR_Error otherwise
      * @see getValueIndex()
      */
@@ -640,7 +617,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Gets the position of the element with the maximum value
      *
-     * @access public
      * @return array|PEAR_Error an array of two numbers on success, FALSE if value is not found, and PEAR_Error otherwise
      * @see getValueIndex()
      */
@@ -655,7 +631,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Transpose the matrix rows and columns
      *
-     * @access public
      * @return boolean|PEAR_Error TRUE on success, PEAR_Error otherwise
      */
     function transpose () {/*{{{*/
@@ -681,7 +656,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the trace of the matrix. Trace = sum(e[i][j]), for all i == j
      *
-     * @access public
      * @return number|PEAR_Error a number on success, PEAR_Error otherwise
      */
     function trace() {/*{{{*/
@@ -705,7 +679,6 @@ class Math_Matrix {/*{{{*/
      * determinant calculated so far is less than 10^-18, trying to detect
      * singular or ill-conditioned matrices
      *
-     * @access public
      * @return number|PEAR_Error a number on success, a PEAR_Error otherwise
      */
     function determinant() {/*{{{*/
@@ -782,7 +755,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the normalized determinant = abs(determinant)/(euclidean norm)
      *
-     * @access public
      * @return number|PEAR_Error a positive number on success, a PEAR_Error otherwise
      */
     function normalizedDeterminant() {/*{{{*/
@@ -801,37 +773,12 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     /**
-     * Returns the index of the row with the maximum value under column of the element e[i][i]
-     *
-     * @access protected
-     * @return an integer
-     */
-    function _maxElementIndex($r) {/*{{{*/
-        $max = 0;
-        $idx = -1;
-        list($nr, $nc) = $this->getSize();
-        $arr = array();
-        for ($i=$r; $i<$nr; $i++) {
-            $val = abs($this->_data[$i][$r]);
-            if ($val > $max) {
-                $max = $val;
-                $idx = $i;
-            }
-        }
-        if ($idx == -1) {
-            $idx = $r;
-        }
-        return $idx;
-    }/*}}}*/
-
-    /**
      * Inverts a matrix using Gauss-Jordan elimination with partial pivoting
      *
-     * @access public
      * @return number|PEAR_Error the value of the matrix determinant on success, PEAR_Error otherwise
      * @see scaleRow()
      */
-    function invert() {
+    function invert() {/*{{{*/
 		if ($this->isEmpty()) {
 			return PEAR::raiseError('Matrix has not been populated');
         }
@@ -923,12 +870,11 @@ class Math_Matrix {/*{{{*/
         }
         $this->_det = $det;
         return $det;
-    }
+    }/*}}}*/
 
     /**
      * Returns a submatrix from the position (row, col), with nrows and ncols
      *
-     * @access public
      * @return object Math_Matrix|PEAR_Error Math_Matrix on success, PEAR_Error otherwise
      */
     function &getSubMatrix ($row, $col, $nrows, $ncols) {/*{{{*/
@@ -950,6 +896,27 @@ class Math_Matrix {/*{{{*/
             }
         }
         return new Math_Matrix($data);
+    }/*}}}*/
+
+
+    /**
+     * Returns the diagonal of a square matrix as a Math_Vector
+     *
+     * @return object Math_Vector|PEAR_Error Math_Vector on success, PEAR_Error otherwise
+     */
+    function &getDiagonal() {/*{{{*/
+		if ($this->isEmpty()) {
+			return PEAR::raiseError('Matrix has not been populated');
+        }
+        if (!$this->isSquare()) {
+            return PEAR::raiseError('Cannot get diagonal vector of a non-square matrix');
+        }
+        list($n,) = $this->getSize();
+        $vals = array();
+        for ($i=0; $i<$n; $i++) {
+            $vals[$i] = $this->getElement($i, $i);
+        }
+        return new Math_Vector($vals);
     }/*}}}*/
     
     /**
@@ -980,7 +947,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns an HTML table representation of the matrix elements
      *
-     * @access public
      * @return a string on success, PEAR_Error otherwise
      */
     function toHTML() {/*{{{*/
@@ -1004,9 +970,39 @@ class Math_Matrix {/*{{{*/
         return $out."\n</table>\n";
     }/*}}}*/
 
+    // private methods
+
+    /**
+     * Returns the index of the row with the maximum value under column of the element e[i][i]
+     *
+     * @access private
+     * @return an integer
+     */
+    function _maxElementIndex($r) {/*{{{*/
+        $max = 0;
+        $idx = -1;
+        list($nr, $nc) = $this->getSize();
+        $arr = array();
+        for ($i=$r; $i<$nr; $i++) {
+            $val = abs($this->_data[$i][$r]);
+            if ($val > $max) {
+                $max = $val;
+                $idx = $i;
+            }
+        }
+        if ($idx == -1) {
+            $idx = $r;
+        }
+        return $idx;
+    }/*}}}*/
+
 
     // Binary operations
     
+    /**#@+
+     * @access public
+     */
+
     /**
      * Adds a matrix to this one
      *
@@ -1113,7 +1109,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Multiplies (scales) a row by the given factor
      *
-     * @access public
      * @param integer $row the row index
      * @param numeric $factor the scaling factor
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
@@ -1142,8 +1137,7 @@ class Math_Matrix {/*{{{*/
 
     /**
      * Multiplies this matrix (A) by another one (B), and stores
-     * the result back in A, therefore A->multiply(B) gives 
-     * A|->AB.
+     * the result back in A
      *
      * @param object Math_Matrix $m1
      * @return boolean|PEAR_Error TRUE on success, PEAR_Error otherwise
@@ -1214,17 +1208,14 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     // Static operations
+    
+    /**@+
+     * @static
+     * @access public
+     */
 
     /**
      * Create a matrix from a file, using data stored in the given format
-     *
-     * Lines starting with '#' will be assumed to be comments and will be skipped
-     *
-     * @static
-     * @access public
-     * @param string $filename name of file containing matrix data
-     * @param optional string $format one of 'serialized' (default) or 'csv'
-     * @return object Math_Matrix|PEAR_Error Math_Matrix instance on success, a PEAR_Error otherwise
      */
     function &readFromFile ($filename, $format='serialized') {/*{{{*/
         if (!file_exists($filename) || !is_readable($filename)) {
@@ -1268,8 +1259,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Writes matrix object to a file using the given format
      *
-     * @static
-     * @access public
      * @param object Math_Matrix $matrix the matrix object to store
      * @param string $filename name of file to contain the matrix data
      * @param optional string $format one of 'serialized' (default) or 'csv'
@@ -1307,8 +1296,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Checks if the object is a Math_Matrix instance
      *
-     * @static
-     * @access public
      * @param object Math_Matrix $matrix
      * @return boolean TRUE on success, FALSE otherwise
      */
@@ -1323,8 +1310,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns a Math_Matrix object of size (nrows, ncols) filled with a value
      *
-     * @static
-     * @access public
      * @param integer $nrows number of rows in the generated matrix
      * @param integer $ncols number of columns in the generated matrix
      * @param numeric $value the fill value
@@ -1343,8 +1328,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the Math_Matrix object of size (nrows, ncols), filled with the value 1 (one)
      *
-     * @static
-     * @access public
      * @param integer $nrows number of rows in the generated matrix
      * @param integer $ncols number of columns in the generated matrix
      * @return object Math_Matrix|PEAR_Error Math_Matrix instance on success, PEAR_Error otherwise
@@ -1357,8 +1340,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the Math_Matrix object of size (nrows, ncols), filled with the value 0 (zero)
      *
-     * @static
-     * @access public
      * @param integer $nrows number of rows in the generated matrix
      * @param integer $ncols number of columns in the generated matrix
      * @return object Math_Matrix|PEAR_Error Math_Matrix instance on success, PEAR_Error otherwise
@@ -1376,8 +1357,6 @@ class Math_Matrix {/*{{{*/
      *  e[i][j] = 0, if i != j
      * Such a matrix is also called an 'identity matrix'
      *
-     * @static
-     * @access public
      * @param integer $size number of rows and columns in the generated matrix
      * @return object Math_Matrix|PEAR_Error a square unit Math_Matrix instance on success, PEAR_Error otherwise
      * @see Math_Matrix::makeIdentity()
@@ -1401,8 +1380,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns the identity matrix of the given size. An alias of Math_Matrix::makeUnit()
      *
-     * @static
-     * @access public
      * @param integer $size number of rows and columns in the generated matrix
      * @return object Math_Matrix|PEAR_Error a square unit Math_Matrix instance on success, PEAR_Error otherwise
      * @see Math_Matrix::makeUnit()
@@ -1416,8 +1393,6 @@ class Math_Matrix {/*{{{*/
     /**
      * Returns a Hilbert matrix of the given size: H(i,j) = 1 / (i + j - 1) where {i,j = 1..n}
      *
-     * @static
-     * @access public
      * @param integer $size number of rows and columns in the Hilbert matrix
      * @return object Math_Matrix|PEAR_Error a Hilber matrix on success, a PEAR_Error otherwise 
      */
@@ -1447,8 +1422,6 @@ class Math_Matrix {/*{{{*/
      *   i = 1..m
      *   j = 1..n
      *
-     * @static
-     * @access public
      * @param array $c first column of Hankel matrix
      * @param optional array $r last row of Hankel matrix
      * @return object Math_Matrix|PEAR_Error a Hankel matrix on success, a PEAR_Error otherwise
@@ -1511,14 +1484,12 @@ class Math_Matrix {/*{{{*/
      * where:
      * - Ainv is the inverse of A
      *
-     * @static
-     * @access public
      * @param object Math_Matrix $a the matrix of coefficients
      * @param object Math_Vector $b the vector of values
      * @return object Math_Vector|PEAR_Error a Math_Vector object on succcess, PEAR_Error otherwise
      * @see vectorMultiply()
      */
-    function solve($a, $b) {
+    function solve($a, $b) {/*{{{*/
         // check that the vector classes are defined
         if (!Math_Matrix::isMatrix($a) && !Math_VectorOp::isVector($b)) {
             return PEAR::raiseError('Incorrect parameters, expecting a Math_Matrix and a Math_Vector');
@@ -1528,7 +1499,7 @@ class Math_Matrix {/*{{{*/
             return $e;
         }
         return $a->vectorMultiply($b);
-    }
+    }/*}}}*/
 
     /**
      * Solves a system of linear equations: Ax = b, using an iterative error correction algorithm
@@ -1566,8 +1537,6 @@ class Math_Matrix {/*{{{*/
      * therefore, we calculate iteratively new values of x using the estimated
      * xadj and testing to check if we have decreased the error.
      *
-     * @static
-     * @access public
      * @param object Math_Matrix $a the matrix of coefficients
      * @param object Math_Vector $b the vector of values
      * @return object Math_Vector|PEAR_Error a Math_Vector object on succcess, PEAR_Error otherwise

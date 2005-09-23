@@ -1,0 +1,184 @@
+From: Geoff Bell <g.bell@bigpond.net.au>
+Subject: eigenvalues and eigenvectors in PEAR Math_Matrix
+Date: Thu, 30 Jun 2005 12:53:07 +1000
+
+I was looking for an eigenvalue/eigenvector solution and could not  
+find one. So I wrote an addition to your Math_Matrix Class in PEAR.  
+Two functions to add to class Math_Matrix. The code is below. It is a  
+bit clumsey as I used an old fortran routine that I had from the late  
+70s. Test data is below that.
+
+Use it if you want.
+
+     /*
+     Calculates the eigenvalues and eigen vectors of a n by n  
+symentic matrix.
+     On completion the eigenvalues are initially stored in the  
+diagonal elements of matrix a (in descendomng order).
+     The eigenvectors are stored in matrix b. Initially, Eigenvalue a 
+[i][i] corresponds to eigenvector (b[j][i],j=0,n-1)
+     These are moved to matrix c.
+     Element c[0] has the eigenvalues and c[1] has the eigenvectors.
+     C[1][0] has the eigenvectors for eigenvalue c[0][0]
+     C[1][1] has the eigenvectors for eigenvalue c[0][1]
+     C[1][2] has the eigenvectors for eigenvalue c[0][2] etc
+
+     From Davis page 166-7
+     */
+     function eigen($ao){
+
+         if ($this->isEmpty()) {
+             return PEAR::raiseError('Matrix has not been populated');
+         }
+         if (!$this->isSquare()) {
+             return PEAR::raiseError('Determinant undefined for non- 
+square matrices');
+         }
+         $anorm = $ao->norm();
+         echo "<br>Euclidean Norm = $anorm\n";
+         $n = $ao -> _num_rows;
+         e(n,$ao->_num_rows);
+         $a = $this -> getData();
+         $io = $ao -> MakeIdentity($n);
+         $b = $io -> getData();
+         $fnorm = $anorm * 1.0E-09/$n;
+         $thr = $anorm;
+         $iend = true;
+         while ($iend)  {
+             // initialize indicators and compute threshold
+             $thr /= $n;
+             $ind = 0;
+             // scan down columns for off-diagonal elements greater  
+or equal to threshold
+
+             for ($i=1;$i<$n;$i++) {
+                 $i1 = $i - 1;
+                 for ($j=0;$j<=$i1;$j++) {
+                     if (abs($a[$j][$i]) - $thr < 0) continue;
+                     $ind = 1;
+                     $al = -$a[$j][$i];
+                     $am = ($a[$j][$j] - $a[$i][$i]) / 2;
+                     $a0 = $al / sqrt($al*$al + $am *$am);
+                     if ($am < 0) $a0 = -$a0;
+                     $sinx = $a0/sqrt(2*(1+sqrt(1-$a0*$a0)));
+                     $sinx2 = $sinx * $sinx;
+                     $cosx = sqrt(1-$sinx2);
+                     $cosx2 = $cosx * $cosx;
+                     // rotate columns i & j
+                     for ($k=0;$k<$n;$k++) {
+                         if ($k != $j) {
+                             if ($k != $i) {
+                                 $at = $a[$k][$j];
+                                 $a[$k][$j] = $at * $cosx - $a[$k] 
+[$i] * $sinx;
+                                 $a[$k][$i] = $at * $sinx + $a[$k] 
+[$i] * $cosx;
+                             }
+                         }
+                         $bt = $b[$k][$j];
+                         $b[$k][$j] = $bt * $cosx - $b[$k][$i] * $sinx;
+                         $b[$k][$i] = $bt * $sinx + $b[$k][$i] * $cosx;
+                     }
+                     $xt = 2 * $a[$j][$i] * $sinx * $cosx;
+                     $at = $a[$j][$j];
+                     $bt = $a[$i][$i];
+                     $a[$j][$j] = $at * $cosx2 + $bt * $sinx2 - $xt;
+                     $a[$i][$i] = $at * $sinx2 + $bt * $cosx2 + $xt;
+                     $a[$j][$i] = ($at - $bt) * $sinx * $cosx + $a[$j] 
+[$i] * ($cosx2 - $sinx2);
+                     $a[$i][$j] = $a[$j][$i];
+                     for ($k=0;$k<$n;$k++) {
+                         $a[$j][$k] = $a[$k][$j];
+                         $a[$i][$k] = $a[$k][$i];
+                     }
+                 }
+             }
+             //if ($ind) continue;
+
+             if ($ind == 0)  {
+                 if ($thr <= $fnorm) $iend = false;
+             }
+         }
+         //sort eigen values and eigenvectors
+         for ($i=1;$i<$n;$i++) {
+             $j = $i;
+             for ($k=0;$k<$n;$k++) {
+                 if (abs($a[$j-1][$k]) < $fnorm) $a[$j-1][$k] = 0;
+                 if (abs($a[$k][$j-1]) < $fnorm) $a[$k][$j-1] = 0;
+             }
+             while (($j-1) >= 0) {
+                 if (($a[$j-1][$j-1] - $a[$j][$j]) > 0) break;
+                 $at = $a[$j-1][$j-1];
+                 $a[$j-1][$j-1] = $a[$j][$j];
+                 $a[$j][$j] = $at;
+                 for ($k=0;$k<$n;$k++) {
+                     $at = $b[$k][$j-1];
+                     $b[$k][$j-1] = $b[$k][$j];
+                     $b[$k][$j] = $at;
+                 }
+                 $j--;
+             }
+         }
+
+         $a1 = new Math_Matrix($a);
+         $d = $a1 -> getDiagonal();
+         $b1 = new Math_Matrix($b);
+         $b1 -> transpose();
+         $b = $b1 -> getData();
+         $c[0] = $d;
+         $c[1] = $b;
+         return $c;
+
+     }
+
+     function getDiagonal() {
+         if ($this->isEmpty()) {
+             return PEAR::raiseError('Matrix has not been populated');
+         }
+         if (!$this->isSquare()) {
+             return PEAR::raiseError('Determinant undefined for non- 
+square matrices');
+         }
+         $a = $this -> getData();
+         $n = $this -> _num_rows;
+         for ($i=0;$i<$n;$i++) {
+             $d[$i] = $a[$i][$i];
+         }
+         return $d;
+     }
+
+Test data for ex_math_matrix.php
+
+$a = array(
+         array(5,2,6),
+         array(2,4,3),
+         array(6,3,2));
+
+$ao = new Math_Matrix($a);
+echo "<br>Call eigen";
+
+$c = $ao -> eigen($ao);
+
+$a = array(
+         array(1,.67,-.1),
+         array(.67,1,-.29),
+         array(-.1,-.29,1));
+
+$ao = new Math_Matrix($a);
+echo "<br>Call eigen";
+
+$c = $ao -> eigen($ao);
+
+
+Have fun and do neat stuff
+
+Regards,
+
+-- 
+Geoff Bell, INTP
+phone:  +61 2 9980 1738
+fax: +61 2 9980 5487
+email: g.bell@netgm.com
+mobile: 0418 998 020
+http://www.netgm.com
+The Competitive Enterprise
