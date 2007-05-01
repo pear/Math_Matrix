@@ -295,7 +295,7 @@ class Math_Matrix {/*{{{*/
      * @return object Math_Matrix|PEAR_Error a Math_Matrix objects on succes, a
      *                                PEAR_Error otherwise.
      */
-    function &clone() {/*{{{*/
+    function &cloneMatrix() {/*{{{*/
         if ($this->isEmpty()) {
             return PEAR::raiseError('Matrix has not been populated');
         } else {
