@@ -159,8 +159,6 @@ class Math_Matrix {/*{{{*/
 	 * @return	boolean|PEAR_Error	true on success, a PEAR_Error object otherwise
      */
     function setData(&$data) {/*{{{*/
-		$errorObj = PEAR::raiseError('Invalid data, cannot create/modify matrix.'.
-                ' Expecting an array of arrays or an initialized Math_Matrix object');
         if (Math_Matrix::isMatrix($data)) {
             if (!$data->isEmpty()) {
                 $this->_data = $data->getData();
@@ -175,11 +173,13 @@ class Math_Matrix {/*{{{*/
             $eucnorm = 0;
             for ($i=0; $i < $nr; $i++) {
                 if (count($data[$i]) != $nc) {
-                    return $errorObj;
+                    return PEAR::raiseError('Invalid data, cannot create/modify matrix.'.
+                        ' Expecting an array of arrays or an initialized Math_Matrix object');
                 }
                 for ($j=0; $j < $nc; $j++) {
                     if (!is_numeric($data[$i][$j])) {
-                        return $errorObj;
+                        return PEAR::raiseError('Invalid data, cannot create/modify matrix.'.
+                            ' Expecting an array of arrays or an initialized Math_Matrix object');
                     }
                     $data[$i][$j] = (float) $data[$i][$j];
                     $tmp[] = $data[$i][$j];
@@ -196,7 +196,8 @@ class Math_Matrix {/*{{{*/
             $this->_det = null; // lazy initialization ;-)
             return true;
         } else {
-			return $errorObj;
+		    return PEAR::raiseError('Invalid data, cannot create/modify matrix.'.
+                ' Expecting an array of arrays or an initialized Math_Matrix object');
         }
     }/*}}}*/
 
