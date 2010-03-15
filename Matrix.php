@@ -15,9 +15,9 @@
 // +----------------------------------------------------------------------+
 // | Authors: Jesus M. Castagnetto <jmcastagnetto@php.net>                |
 // +----------------------------------------------------------------------+
-// 
+//
 // Matrix definition and manipulation package
-// 
+//
 // $Id$
 //
 
@@ -37,7 +37,7 @@ require_once 'Math/Vector/Vector.php';
  * </pre>
  *
  * i.e. N rows, M colums
- * 
+ *
  * Originally this class was part of NumPHP (Numeric PHP package)
  *
  * @author      Jesus M. Castagnetto <jmcastagnetto@php.net>
@@ -48,11 +48,11 @@ require_once 'Math/Vector/Vector.php';
 class Math_Matrix {/*{{{*/
 
 	// Properties /*{{{*/
-	
+
     /**#@+
      * @access private
      */
-    
+
     /**
      * Contains the array of arrays defining the matrix
      *
@@ -80,7 +80,7 @@ class Math_Matrix {/*{{{*/
     /**
      * A flag indicating if the matrix is square
      * i.e. if $this->_num_cols == $this->_num_rows
-     * 
+     *
      * @var     boolean
      * @see     isSquare()
      */
@@ -105,7 +105,7 @@ class Math_Matrix {/*{{{*/
      * @see     getMinMax()
      */
     var $_max = null;
-    
+
     /**
      * The Euclidean norm for the matrix: sqrt(sum(e[i][j]^2))
      *
@@ -136,7 +136,7 @@ class Math_Matrix {/*{{{*/
 
     /**
      * Constructor for the matrix object
-     * 
+     *
      * @param   array|Math_Matrix   $data a numeric array of arrays of a Math_Matrix object
 	 * @return	object	Math_Matrix
      * @see     $_data
@@ -146,7 +146,7 @@ class Math_Matrix {/*{{{*/
 		if (!is_null($data))
 			$this->setData($data);
     }/*}}}*/
-    
+
     /**
      * Validates the data and initializes the internal variables (except for the determinant).
      *
@@ -239,7 +239,7 @@ class Math_Matrix {/*{{{*/
     function getZeroThreshold() {/*{{{*/
         return $this->_epsilon;
     }/*}}}*/
- 
+
     /**
      * Checks if the matrix has been initialized.
      *
@@ -253,7 +253,7 @@ class Math_Matrix {/*{{{*/
 	/**
 	 * Returns an array with the number of rows and columns in the matrix
 	 *
-	 * @return	array|PEAR_Error	an array of integers on success, a PEAR_Error object otherwise 
+	 * @return	array|PEAR_Error	an array of integers on success, a PEAR_Error object otherwise
 	 */
     function getSize() {/*{{{*/
 		if ($this->isEmpty())
@@ -279,7 +279,7 @@ class Math_Matrix {/*{{{*/
      * Returns the Euclidean norm of the matrix.
      *
      * Euclidean norm = sqrt( sum( e[i][j]^2 ) )
-     * 
+     *
      * @return float|PEAR_Error a number on success, a PEAR_Error otherwise
      */
     function norm() {/*{{{*/
@@ -364,7 +364,7 @@ class Math_Matrix {/*{{{*/
         if ($asVector) {
             $classes = get_declared_classes();
             if (!in_array("math_vector", $classes) || !in_array("math_vectopop", $classes)) {
-                return PEAR::raiseError ("Classes Math_Vector and Math_VectorOp undefined". 
+                return PEAR::raiseError ("Classes Math_Vector and Math_VectorOp undefined".
                                     " add \"require_once 'Math/Vector/Vector.php'\" to your script");
             }
             return new Math_Vector($this->_data[$row]);
@@ -427,7 +427,7 @@ class Math_Matrix {/*{{{*/
         if ($asVector) {
             $classes = get_declared_classes();
             if (!in_array("math_vector", $classes) || !in_array("math_vectopop", $classes)) {
-                return PEAR::raiseError ("Classes Math_Vector and Math_VectorOp undefined". 
+                return PEAR::raiseError ("Classes Math_Vector and Math_VectorOp undefined".
                                     " add \"require_once 'Math/Vector/Vector.php'\" to your script");
             }
             return new Math_Vector($ret);
@@ -466,7 +466,7 @@ class Math_Matrix {/*{{{*/
                     return $err;
                 }
             }
-            
+
         }
         return true;
     }/*}}}*/
@@ -567,7 +567,7 @@ class Math_Matrix {/*{{{*/
             return $this->_min;
         }
     }/*}}}*/
-    
+
     /**
      * Returns the maximum value of the elements in the matrix
      *
@@ -672,7 +672,7 @@ class Math_Matrix {/*{{{*/
         }
         return $trace;
     }/*}}}*/
-    
+
     /**
      * Calculates the matrix determinant using Gaussian elimination with partial pivoting.
      *
@@ -699,9 +699,9 @@ class Math_Matrix {/*{{{*/
         $det = 1.0;
         $sign = 1;
         // work on a copy
-        $m = $this->clone();
+        $m = $this->cloneMatrix();
         list($nr, $nc) = $m->getSize();
-        for ($r=0; $r<$nr; $r++) { 
+        for ($r=0; $r<$nr; $r++) {
             // find the maximum element in the column under the current diagonal element
             $ridx = $m->_maxElementIndex($r);
             if (PEAR::isError($ridx)) {
@@ -790,7 +790,7 @@ class Math_Matrix {/*{{{*/
         $sign = 1;
         $det = 1.0;
         // work on a copy to be safe
-        $m = $this->clone();
+        $m = $this->cloneMatrix();
         if (PEAR::isError($m)) {
             return $m;
         }
@@ -802,7 +802,7 @@ class Math_Matrix {/*{{{*/
         }
         for ($i=0; $i<$nr; $i++) {
             $ridx = $this->_maxElementIndex($i);
-            if ($i != $ridx) { 
+            if ($i != $ridx) {
                 $sign = -$sign;
                 $e = $m->swapRows($i, $ridx);
                 if (PEAR::isError($e)) {
@@ -884,10 +884,10 @@ class Math_Matrix {/*{{{*/
             return PEAR::raiseError('Parameters must be a initial row and column, and number of rows and columns in submatrix');
         }
         list($nr, $nc) = $this->getSize();
-        if ($rows + $nrows > $nr) {
+        if ($row + $nrows > $nr) {
             return PEAR::raiseError('Rows in submatrix more than in original matrix');
         }
-        if ($cols + $ncols > $nr) {
+        if ($col + $ncols > $nc) {
             return PEAR::raiseError('Columns in submatrix more than in original matrix');
         }
         $data = array();
@@ -919,7 +919,7 @@ class Math_Matrix {/*{{{*/
         }
         return new Math_Vector($vals);
     }/*}}}*/
-    
+
     /**
      * Returns a simple string representation of the matrix
      *
@@ -944,7 +944,7 @@ class Math_Matrix {/*{{{*/
         }
         return $out;
     }/*}}}*/
-    
+
     /**
      * Returns an HTML table representation of the matrix elements
      *
@@ -999,7 +999,7 @@ class Math_Matrix {/*{{{*/
 
 
     // Binary operations
-    
+
     /**#@+
      * @access public
      */
@@ -1209,7 +1209,7 @@ class Math_Matrix {/*{{{*/
     }/*}}}*/
 
     // Static operations
-    
+
     /**@+
      * @static
      * @access public
@@ -1250,7 +1250,7 @@ class Math_Matrix {/*{{{*/
             $m =& new Math_Matrix();
             $e = $m->setData($data);
             if (PEAR::isError($e)) {
-                return $e; 
+                return $e;
             } else {
                 return $m;
             }
@@ -1395,7 +1395,7 @@ class Math_Matrix {/*{{{*/
      * Returns a Hilbert matrix of the given size: H(i,j) = 1 / (i + j - 1) where {i,j = 1..n}
      *
      * @param integer $size number of rows and columns in the Hilbert matrix
-     * @return object Math_Matrix|PEAR_Error a Hilber matrix on success, a PEAR_Error otherwise 
+     * @return object Math_Matrix|PEAR_Error a Hilber matrix on success, a PEAR_Error otherwise
      */
     function &makeHilbert($size) {/*{{{*/
         if (!is_integer($size)) {
@@ -1416,7 +1416,7 @@ class Math_Matrix {/*{{{*/
      * row. If R is not defined, C will be used. Also, if the last element of C
      * is not the same to the first element of R, the last element of C is
      * used.
-     * 
+     *
      * H(i,j) = C(i+j-1), i+j-1 <= m
      * H(i,j) = R(i+j-m), otherwise
      * where:
@@ -1452,7 +1452,7 @@ class Math_Matrix {/*{{{*/
                 if (($i + $j - 1) <= $nc) {
                     $val = $c[($i + $j - 1) - 1];
                 } else {
-                    $val = $r[($i + $j - $nc) - 1]; 
+                    $val = $r[($i + $j - $nc) - 1];
                 }
                 $data[($i - 1)][($j - 1)] = $val;
             }
@@ -1460,7 +1460,7 @@ class Math_Matrix {/*{{{*/
         return new Math_Matrix($data);
     }/*}}}*/
 
-    
+
     // methods for solving linear equations
 
     /**
@@ -1477,8 +1477,8 @@ class Math_Matrix {/*{{{*/
      * <pre>
      *     Ax = b
      * </pre>
-     * where: 
-     * - A is matrix of coefficients (aij, i=1..k, j=1..n), 
+     * where:
+     * - A is matrix of coefficients (aij, i=1..k, j=1..n),
      * - b a vector of values (bi, i=1..k),
      * - x the vector of unkowns (xi, i=1..n)
      * Using: x = (Ainv)*b
@@ -1516,8 +1516,8 @@ class Math_Matrix {/*{{{*/
      * <pre>
      *     Ax = b
      * </pre>
-     * where: 
-     * - A is matrix of coefficients (aij, i=1..k, j=1..n), 
+     * where:
+     * - A is matrix of coefficients (aij, i=1..k, j=1..n),
      * - b a vector of values (bi, i=1..k),
      * - x the vector of unkowns (xi, i=1..n)
      * Using: x = (Ainv)*b
@@ -1548,7 +1548,7 @@ class Math_Matrix {/*{{{*/
      * @see Math_VectorOp::length()
      */
     function solveEC($a, $b) {/*{{{*/
-        $ainv = $a->clone();
+        $ainv = $a->cloneMatrix();
         $e = $ainv->invert();
         if (PEAR::isError($e)) {
             return $e;
@@ -1569,7 +1569,7 @@ class Math_Matrix {/*{{{*/
         }
         $adjnorm = $adj->length();
         $xnew = $x;
-        
+
         // compute new solutions and test for accuracy
         // iterate no more than 10 times
         for ($i=0; $i<10; $i++) {
@@ -1589,7 +1589,7 @@ class Math_Matrix {/*{{{*/
         }
         return $x;
     }/*}}}*/
-   
+
 } // end of Math_Matrix class /*}}}*/
 
 // vim: ts=4:sw=4:et:
