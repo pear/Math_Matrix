@@ -1,97 +1,111 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- do not use the "Type" attribute here, that one is only for
-     generated package.xml files -->
-<package>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
  <name>Math_Matrix</name>
+ <channel>pear.php.net</channel>
  <summary>Class to represent matrices and matrix operations</summary>
- <description>
-  Matrices are represented as 2 dimensional arrays of numbers. 
-  This class defines methods for matrix objects, as well as static methods 
-  to read, write and manipulate matrices, including methods to solve systems 
-  of linear equations (with and without iterative error correction).
-
-  Requires the Math_Vector package.
-
-  For running the unit tests you will need PHPUnit version 0.6.2 or older.
+ <description>Matrices are represented as 2 dimensional arrays of numbers. 
+This class defines methods for matrix objects, as well as static methods 
+to read, write and manipulate matrices, including methods to solve systems 
+of linear equations (with and without iterative error correction).
+Requires the Math_Vector package.
+For running the unit tests you will need PHPUnit version 0.6.2 or older.
  </description>
- <maintainers>
-  <maintainer>
-   <user>jmcastagnetto</user>
-   <name>Jesus M. Castagnetto</name>
-   <email>jmcastagnetto@php.net</email>
-   <role>lead</role>
-  </maintainer>
- </maintainers>
- <release>
-  <license>PHP</license>
-  <version>0.8.5</version>
-  <date>2003-11-01</date>
-  <state>beta</state>
-  <notes>
-<![CDATA[
-   Fixed some bugs in matrix multiplication reported by John Pye
-   (john [at] curioussymbols [dot] com) and 
-   Marcel Brunner (marcel [at] palmer [dot] li).
+ <lead>
+  <name>Jesus M. Castagnetto</name>
+  <user>jmcastagnetto</user>
+  <email>jmcastagnetto@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-03-15</date>
+ <time>00:35:04</time>
+ <version>
+  <release>0.8.5</release>
+  <api>0.8.5</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP</license>
+ <notes>Fixed some bugs in matrix multiplication reported by John Pye
+(john [at] curioussymbols [dot] com) and 
+Marcel Brunner (marcel [at] palmer [dot] li).
+Fixed some minor documentation incosistencies.
 
-   Fixed some minor documentation incosistencies.
-   
-   Modified the setData() method to accept a Math_Matrix object or
-   an array of arrays of numbers.
-
-   Added the setZeroThreshold() and getZeroThreshold() to set and get the
-   value used as upper bound to minimize round-off errors.
-
-   Added also two static methods to generate famous matrices:
-   Math_Matrix::makeHilbert() for a square Hilber matrix, and 
-   Math_Matrix::makeHankel() for m by n Hankel matrix.
-
-   Reorganized the directories to comply to the current directory organization
-   proposal.
-
-   It is recommended to uninstall the older version of Math_Matrix (and
-   Math_Vector) before installing this new release to avoid lingering files
-   (there is also a new release of Math_Vector):
-   $ pear uninstall Math_Matrix Math_Vector
-   $ pear install Math_Vector
-   $ pear install Math_Matrix
-
-   Included explicitely the optional dependency on the PHPUnit package version
-   0.6.2 or older, as current versions of that package need PHP5.
-]]>
-  </notes>
-  <filelist>
-   <dir name="/" baseinstalldir="Math">
-    <file role="php">Matrix.php</file>
-    <dir name="docs" role="doc">
-     <file role="doc">README-Math_Matrix</file>
-    </dir>
-    <dir name="tests" role="test">
-     <file role="php">test_Math_Matrix_instance_methods.php</file>
-     <file role="php">test_Math_Matrix_static_methods.php</file>
-     <dir name="examples" role="test">
-      <file role="php">ex_math_matrix.php</file>
-      <file role="php">data.mat</file>
-     </dir>
-    </dir>
-   </dir>
-  </filelist>
-  <deps>
-   <dep type="pkg" rel="has">Math_Vector</dep>
-   <dep type="pkg" rel="le" version="0.6.2" optional="yes">PHPUnit</dep>
-  </deps>
- </release>
+Modified the setData() method to accept a Math_Matrix object or
+an array of arrays of numbers.
+Added the setZeroThreshold() and getZeroThreshold() to set and get the
+value used as upper bound to minimize round-off errors.
+Added also two static methods to generate famous matrices:
+Math_Matrix::makeHilbert() for a square Hilber matrix, and 
+Math_Matrix::makeHankel() for m by n Hankel matrix.
+Reorganized the directories to comply to the current directory organization
+proposal.
+It is recommended to uninstall the older version of Math_Matrix (and
+Math_Vector) before installing this new release to avoid lingering files
+(there is also a new release of Math_Vector):
+$ pear uninstall Math_Matrix Math_Vector
+$ pear install Math_Vector
+$ pear install Math_Matrix
+Included explicitely the optional dependency on the PHPUnit package version
+0.6.2 or older, as current versions of that package need PHP5.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="docs">
+    <file baseinstalldir="Math" name="README-Math_Matrix" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="tests">
+    <dir name="examples">
+     <file baseinstalldir="Math" name="data.mat" role="php" />
+     <file baseinstalldir="Math" name="ex_math_matrix.php" role="php" />
+    </dir> <!-- /tests/examples -->
+    <file baseinstalldir="Math" name="test_Math_Matrix_instance_methods.php" role="php" />
+    <file baseinstalldir="Math" name="test_Math_Matrix_static_methods.php" role="php" />
+   </dir> <!-- /tests -->
+   <file baseinstalldir="Math" name="Matrix.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Math_Vector</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>PHPUnit</name>
+    <channel>pear.php.net</channel>
+    <max>0.6.2</max>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
  <changelog>
   <release>
-   <version>0.8.0</version>
+   <version>
+    <release>0.8.0</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
    <date>2003-05-16</date>
-   <notes>
-    Initial released under PEAR. Reestructured the package so the main class
-    contains both instance and class methods to make things simpler.
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>Initial released under PEAR. Reestructured the package so the main class
+contains both instance and class methods to make things simpler.
    </notes>
-   <deps>
-    <dep type="pkg" rel="has">Math_Vector</dep>
-   </deps>
   </release>
  </changelog>
 </package>
