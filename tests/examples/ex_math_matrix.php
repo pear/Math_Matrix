@@ -2,7 +2,7 @@
 /**
  * Example of using the Math_Matrix class
  * @author Jesus M. Castagnetto
- * 
+ *
  * $Id$
  */
 
@@ -47,7 +47,7 @@ echo "\nInverting matrix\n";
 $det = $p->invert();
 echo $p->toString()."\n";
 echo "Product of matrix and its inverse\n";
-$q = $m->clone();
+$q = $m->cloneMatrix();
 $q->multiply($p);
 echo $q->toString('%4.12f')."\n";
 
@@ -120,9 +120,9 @@ $Bdata = array(
         );
 
 $A = new Math_Matrix($Adata);
-$A1 = $A->clone();
+$A1 = $A->cloneMatrix();
 $B = new Math_Matrix($Bdata);
-$B1 = $B->clone();
+$B1 = $B->cloneMatrix();
 
 $A1->multiply($B1);
 $B->multiply($A);
