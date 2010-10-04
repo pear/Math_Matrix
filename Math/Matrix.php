@@ -142,9 +142,10 @@ class Math_Matrix {/*{{{*/
      * @see     $_data
      * @see     setData()
      */
-    function Math_Matrix ($data=null) {/*{{{*/
-		if (!is_null($data))
+    function Math_Matrix($data = null) {/*{{{*/
+		if (!is_null($data)) {
 			$this->setData($data);
+        }
     }/*}}}*/
 
     /**
@@ -158,7 +159,7 @@ class Math_Matrix {/*{{{*/
      * @param   array   $data array of arrays of numbers or a valid Math_Matrix object
 	 * @return	boolean|PEAR_Error	true on success, a PEAR_Error object otherwise
      */
-    function setData(&$data) {/*{{{*/
+    function setData($data) {/*{{{*/
         if (Math_Matrix::isMatrix($data)) {
             if (!$data->isEmpty()) {
                 $this->_data = $data->getData();
@@ -168,9 +169,14 @@ class Math_Matrix {/*{{{*/
         } elseif (is_array($data) || is_array($data[0])) {
             // check that we got a numeric bidimensional array
             // and that all rows are of the same size
-            $nc = count($data[0]);
+            $nc = 0;
+            if (!empty($data[0])) {
+                $nc = count($data[0]);
+            }
+
             $nr = count($data);
             $eucnorm = 0;
+            $tmp = array();
             for ($i=0; $i < $nr; $i++) {
                 if (count($data[$i]) != $nc) {
                     return PEAR::raiseError('Invalid data, cannot create/modify matrix.'.
@@ -189,8 +195,8 @@ class Math_Matrix {/*{{{*/
             $this->_num_rows = $nr;
             $this->_num_cols = $nc;
             $this->_square = ($nr == $nc);
-            $this->_min = min($tmp);
-            $this->_max = max($tmp);
+            $this->_min = !empty($tmp)? min($tmp) : null;
+            $this->_max = !empty($tmp)? max($tmp) : null;
             $this->_norm = sqrt($eucnorm);
             $this->_data = $data;
             $this->_det = null; // lazy initialization ;-)
@@ -1265,7 +1271,7 @@ class Math_Matrix {/*{{{*/
      * @param optional string $format one of 'serialized' (default) or 'csv'
      * @return boolean|PEAR_Error TRUE on success, a PEAR_Error otherwise
      */
-    function writeToFile (&$matrix, $filename, $format='serialized') {/*{{{*/
+    function writeToFile($matrix, $filename, $format='serialized') {/*{{{*/
         if (!Math_Matrix::isMatrix($matrix)) {
             return PEAR::raiseError("Parameter must be a Math_Matrix object");
         }

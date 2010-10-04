@@ -26,27 +26,26 @@ require_once 'Math/Matrix.php';
 
 class Math_Matrix_Static_MethodsTest extends PHPUnit_Framework_TestCase {
     var $m;
-    var $data = array(
-                    array(1.0,2.0,3.0,4.0),
-                    array(5.0,6.0,7.0,8.0),
-                    array(1.0,4.0,5.0,7.0),
-                    array(2.0,3.0,-3.0,4.0)
-                );
-
-    function Math_Matrix_Static_Methods_Test($name) {
-        $this->PHPUnit_TestCase($name);
-    }
-
     function setUp() {
-        $this->m = new Math_Matrix($this->data);
+        $data = array(
+                        array(1.0,2.0,3.0,4.0),
+                        array(5.0,6.0,7.0,8.0),
+                        array(1.0,4.0,5.0,7.0),
+                        array(2.0,3.0,-3.0,4.0)
+                    );
+
+
+        $this->m = new Math_Matrix($data);
     }
 
     function testWriteToFile() {
-        $this->assertTrue(Math_Matrix::writeToFile($this->m, 'testdata.mat', 'csv'));
+        $result = Math_Matrix::writeToFile($this->m, dirname(__FILE__) . '/testdata.mat', 'csv');
+
+        $this->assertTrue($result);
     }
 
     function testReadFromFile() {
-        $p = Math_Matrix::readFromFile('testdata.mat', 'csv');
+        $p = Math_Matrix::readFromFile(dirname(__FILE__) . '/testdata.mat', 'csv');
         $this->assertEquals($this->m->getData(), $p->getData());
     }
 

@@ -26,19 +26,17 @@ require_once 'Math/Matrix.php';
 
 class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{*/
     var $m;
-    var $data = array(
+
+    function setUp() {
+        $data = array(
                     array(1.0,2.0,3.0,4.0),
                     array(5.0,6.0,7.0,8.0),
                     array(1.0,4.0,5.0,7.0),
                     array(2.0,3.0,-3.0,4.0)
                 );
 
-    function Math_Matrix_Instance_Methods_Test($name) {
-        $this->PHPUnit_TestCase($name);
-    }
 
-    function setUp() {
-        $this->m = new Math_Matrix($this->data);
+        $this->m = new Math_Matrix($data);
     }
 
     function testIsSquare() {
@@ -53,8 +51,8 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
         $this->assertFalse($this->m->isEmpty());
     }
 
-    function testClone() {
-        $q = $this->m->clone();
+    function testCloneMatrix() {
+        $q = $this->m->cloneMatrix();
         $this->assertEquals($q, $this->m);
     }
 
@@ -89,7 +87,13 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
     }
 
     function testGetData() {
-        $this->assertEquals($this->data, $this->m->getData());
+        $data = array(
+                    array(1.0,2.0,3.0,4.0),
+                    array(5.0,6.0,7.0,8.0),
+                    array(1.0,4.0,5.0,7.0),
+                    array(2.0,3.0,-3.0,4.0)
+                );
+        $this->assertEquals($data, $this->m->getData());
     }
 
     function testGetMin() {
@@ -127,9 +131,16 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
     }
 
     function testInvert() {
+        $data = array(
+                    array(1.0,2.0,3.0,4.0),
+                    array(5.0,6.0,7.0,8.0),
+                    array(1.0,4.0,5.0,7.0),
+                    array(2.0,3.0,-3.0,4.0)
+                );
+
         $unit = Math_Matrix::makeUnit(4);
-        $q = new Math_Matrix($this->data);
-        $p = $q->clone();
+        $q = new Math_Matrix($data);
+        $p = $q->cloneMatrix();
         $q->invert();
         $p->multiply($q);
         $this->assertEquals($unit->toString(), $p->toString());
@@ -159,9 +170,9 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                 );
 
         $A = new Math_Matrix($Adata);
-        $A1 = $A->clone();
+        $A1 = $A->cloneMatrix();
         $B = new Math_Matrix($Bdata);
-        $B1 = $B->clone();
+        $B1 = $B->cloneMatrix();
 
         $A1->multiply($B);
         $B1->multiply($A);
@@ -189,8 +200,8 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(4.0,11.0,10.0,4.0),
                     array(6.0,11.0,4.0,8.0)
                 );
-        $q = $this->m->clone();
-        $p = $q->clone();
+        $q = $this->m->cloneMatrix();
+        $p = $q->cloneMatrix();
         $q->transpose();
         $p->add($q);
         $this->assertEquals($data, $p->getData());
@@ -203,8 +214,8 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(-2.0,-3.0,0.0,10.0),
                     array(-2.0,-5.0,-10.0,0.0)
                 );
-        $q = $this->m->clone();
-        $p = $q->clone();
+        $q = $this->m->cloneMatrix();
+        $p = $q->cloneMatrix();
         $q->transpose();
         $p->sub($q);
         $this->assertEquals($data, $p->getData());
@@ -217,7 +228,7 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(2.0,8.0,10.0,14.0),
                     array(4.0,6.0,-6.0,8.0)
                 );
-        $q = $this->m->clone();
+        $q = $this->m->cloneMatrix();
         $q->scale(2.0);
         $this->assertEquals($data, $q->getData());
     }
@@ -229,7 +240,7 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(1.0,4.0,5.0,7.0),
                     array(2.0,3.0,-3.0,4.0)
                 );
-        $q = $this->m->clone();
+        $q = $this->m->cloneMatrix();
         $q->scaleRow(1,2.0);
         $this->assertEquals($data, $q->getData());
     }
@@ -241,7 +252,7 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(5.0,6.0,7.0,8.0),
                     array(2.0,3.0,-3.0,4.0)
                 );
-        $q = $this->m->clone();
+        $q = $this->m->cloneMatrix();
         $q->swapRows(1,2);
         $this->assertEquals($data, $q->getData());
     }
@@ -253,7 +264,7 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(1.0,5.0,4.0,7.0),
                     array(2.0,-3.0,3.0,4.0)
                 );
-        $q = $this->m->clone();
+        $q = $this->m->cloneMatrix();
         $q->swapCols(1,2);
         $this->assertEquals($data, $q->getData());
     }
@@ -265,7 +276,7 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
                     array(3.0,4.0,5.0,7.0),
                     array(4.0,3.0,-3.0,4.0)
                 );
-        $q = $this->m->clone();
+        $q = $this->m->cloneMatrix();
         $q->swapRowCol(0,0);
         $this->assertEquals($data, $q->getData());
     }
@@ -273,7 +284,7 @@ class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{
     function testVectorMultiply() {
         $data = array(53.0,129.0,96.0,13.0);
         $v = new Math_Vector(array(-1,9,8,3));
-        $q = $this->m->clone();
+        $q = $this->m->cloneMatrix();
         $r = $q->vectorMultiply($v);
         $t = $r->getTuple();
         $this->assertEquals($data, $t->data);
