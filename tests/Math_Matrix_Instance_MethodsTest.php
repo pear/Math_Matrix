@@ -21,11 +21,10 @@
 // $Id$
 //
 
-require_once 'PHPUnit.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'Math/Matrix.php';
-//require_once '../Matrix.php';
 
-class Math_Matrix_Instance_Methods_Test extends PHPUnit_TestCase {/*{{{*/
+class Math_Matrix_Instance_MethodsTest extends PHPUnit_Framework_TestCase {/*{{{*/
     var $m;
     var $data = array(
                     array(1.0,2.0,3.0,4.0),
@@ -281,11 +280,3 @@ class Math_Matrix_Instance_Methods_Test extends PHPUnit_TestCase {/*{{{*/
     }
 
 }/*}}}*/
-
-$suite = new PHPUnit_TestSuite('Math_Matrix_Instance_Methods_Test');
-$result = PHPUnit::run($suite);
-echo $result->toString()."\n";
-
-// vim: ts=4:sw=4:et:
-// vim6: fdl=1:
-?>
