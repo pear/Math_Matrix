@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Math_Matrix</name>
  <channel>pear.php.net</channel>
  <summary>Class to represent matrices and matrix operations</summary>
@@ -11,18 +8,17 @@ This class defines methods for matrix objects, as well as static methods
 to read, write and manipulate matrices, including methods to solve systems 
 of linear equations (with and without iterative error correction).
 Requires the Math_Vector package.
-For running the unit tests you will need PHPUnit version 0.6.2 or older.
- </description>
+For running the unit tests you will need PHPUnit version 0.6.2 or older.</description>
  <lead>
   <name>Jesus M. Castagnetto</name>
   <user>jmcastagnetto</user>
   <email>jmcastagnetto@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-03-15</date>
- <time>00:35:04</time>
+ <date>2010-10-05</date>
+ <time>00:17:46</time>
  <version>
-  <release>0.8.5</release>
+  <release>0.8.6</release>
   <api>0.8.5</api>
  </version>
  <stability>
@@ -30,44 +26,31 @@ For running the unit tests you will need PHPUnit version 0.6.2 or older.
   <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP</license>
- <notes>Fixed some bugs in matrix multiplication reported by John Pye
-(john [at] curioussymbols [dot] com) and 
-Marcel Brunner (marcel [at] palmer [dot] li).
-Fixed some minor documentation incosistencies.
-
-Modified the setData() method to accept a Math_Matrix object or
-an array of arrays of numbers.
-Added the setZeroThreshold() and getZeroThreshold() to set and get the
-value used as upper bound to minimize round-off errors.
-Added also two static methods to generate famous matrices:
-Math_Matrix::makeHilbert() for a square Hilber matrix, and 
-Math_Matrix::makeHankel() for m by n Hankel matrix.
-Reorganized the directories to comply to the current directory organization
-proposal.
-It is recommended to uninstall the older version of Math_Matrix (and
-Math_Vector) before installing this new release to avoid lingering files
-(there is also a new release of Math_Vector):
-$ pear uninstall Math_Matrix Math_Vector
-$ pear install Math_Vector
-$ pear install Math_Matrix
-Included explicitely the optional dependency on the PHPUnit package version
-0.6.2 or older, as current versions of that package need PHP5.
+ <notes>
+QA release
+Package 2.0
+Bug #884 PEAR QA: improvement for get_class()-usage 	jmcastagnetto
+Bug #4959 Wrong dependency to PHPUnit 	 
+Bug #9248 Parse error in PHP5 	jmcastagnetto
+Bug #10728 multiply() method 	fou
+Bug #11942 setData creates an error even when it isn&apos;t raised 	jmcastagnetto
+Bug #13209 Math_Matrix has a method &apos;clone&apos; which became a keyword as of PHP5 	jmcastagnetto
+Bug #14986 PHP5 Integration 	 
+Bug #16838 subMatrix has an error where checking for the number of columns 	kguest
+Bug #16999 Support for PHP 5 	kguest
  </notes>
  <contents>
-  <dir name="/">
-   <dir name="docs">
-    <file baseinstalldir="Math" name="README-Math_Matrix" role="doc" />
-   </dir> <!-- /docs -->
-   <dir name="tests">
-    <dir name="examples">
-     <file baseinstalldir="Math" name="data.mat" role="php" />
-     <file baseinstalldir="Math" name="ex_math_matrix.php" role="php" />
-    </dir> <!-- /tests/examples -->
-    <file baseinstalldir="Math" name="test_Math_Matrix_instance_methods.php" role="php" />
-    <file baseinstalldir="Math" name="test_Math_Matrix_static_methods.php" role="php" />
-   </dir> <!-- /tests -->
-   <file baseinstalldir="Math" name="Matrix.php" role="php" />
-  </dir> <!-- / -->
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="ee67c2003ca155ea51f8b20a07a61ae5" name="contrib/eigen_math_matrix.txt" role="data" />
+   <file baseinstalldir="/" md5sum="1809f7e93397775c52fbe8cbe2307036" name="docs/Math_Matrix.dia" role="doc" />
+   <file baseinstalldir="Math" md5sum="2f158265af67f1e95cce1174e19c61a0" name="docs/README-Math_Matrix" role="doc" />
+   <file baseinstalldir="/" md5sum="3265bb9ce79eb0d26f3afc9fe6762a2a" name="docs/TODO" role="doc" />
+   <file baseinstalldir="/" md5sum="006c0029735369ee5bc2a0e6e80bf9d2" name="Math/Matrix.php" role="php" />
+   <file baseinstalldir="Math" md5sum="464d75efae873a8946d1f5e0cd71f9ec" name="tests/test_Math_Matrix_instance_methods.php" role="test" />
+   <file baseinstalldir="Math" md5sum="af14b9dea859d1012f8e2dc71b492bb5" name="tests/test_Math_Matrix_static_methods.php" role="test" />
+   <file baseinstalldir="Math" md5sum="4f94152a366e2bbb428495948d2f6318" name="tests/examples/data.mat" role="php" />
+   <file baseinstalldir="Math" md5sum="33117d986ec87e04c9b0e1f9bb2eaa51" name="tests/examples/ex_math_matrix.php" role="test" />
+  </dir>
  </contents>
  <dependencies>
   <required>
@@ -103,8 +86,70 @@ Included explicitely the optional dependency on the PHPUnit package version
    </stability>
    <date>2003-05-16</date>
    <license uri="http://www.php.net/license">PHP</license>
-   <notes>Initial released under PEAR. Reestructured the package so the main class
+   <notes>
+Initial released under PEAR. Reestructured the package so the main class
 contains both instance and class methods to make things simpler.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.5</release>
+    <api>0.8.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-05</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+Fixed some bugs in matrix multiplication reported by John Pye
+(john [at] curioussymbols [dot] com) and 
+Marcel Brunner (marcel [at] palmer [dot] li).
+Fixed some minor documentation incosistencies.
+
+Modified the setData() method to accept a Math_Matrix object or
+an array of arrays of numbers.
+Added the setZeroThreshold() and getZeroThreshold() to set and get the
+value used as upper bound to minimize round-off errors.
+Added also two static methods to generate famous matrices:
+Math_Matrix::makeHilbert() for a square Hilber matrix, and 
+Math_Matrix::makeHankel() for m by n Hankel matrix.
+Reorganized the directories to comply to the current directory organization
+proposal.
+It is recommended to uninstall the older version of Math_Matrix (and
+Math_Vector) before installing this new release to avoid lingering files
+(there is also a new release of Math_Vector):
+$ pear uninstall Math_Matrix Math_Vector
+$ pear install Math_Vector
+$ pear install Math_Matrix
+Included explicitely the optional dependency on the PHPUnit package version
+0.6.2 or older, as current versions of that package need PHP5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.6</release>
+    <api>0.8.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-05</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+QA release
+Package 2.0
+Bug #884 PEAR QA: improvement for get_class()-usage 	jmcastagnetto
+Bug #4959 Wrong dependency to PHPUnit 	 
+Bug #9248 Parse error in PHP5 	jmcastagnetto
+Bug #10728 multiply() method 	fou
+Bug #11942 setData creates an error even when it isn&apos;t raised 	jmcastagnetto
+Bug #13209 Math_Matrix has a method &apos;clone&apos; which became a keyword as of PHP5 	jmcastagnetto
+Bug #14986 PHP5 Integration 	 
+Bug #16838 subMatrix has an error where checking for the number of columns 	kguest
+Bug #16999 Support for PHP 5 	kguest
    </notes>
   </release>
  </changelog>
