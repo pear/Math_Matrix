@@ -902,7 +902,8 @@ class Math_Matrix {/*{{{*/
                 $data[$i][$j] = $this->getElement($i + $row, $j + $col);
             }
         }
-        return new Math_Matrix($data);
+        $obj = new Math_Matrix($data);
+        return $obj;
     }/*}}}*/
 
 
@@ -1211,7 +1212,8 @@ class Math_Matrix {/*{{{*/
                 $data[$i] += $this->getElement($i,$j) * $v1->get($j);
             }
         }
-        return new Math_Vector($data);
+        $obj = new Math_Vector($data);
+        return $obj;
     }/*}}}*/
 
     // Static operations
@@ -1329,7 +1331,10 @@ class Math_Matrix {/*{{{*/
         for ($i=0; $i<$nrows; $i++) {
             $m[$i] = explode(":",substr(str_repeat($value.":",$ncols),0,-1));
         }
-        return new Math_Matrix($m);
+
+        $obj = new Math_Matrix($m);
+        return $obj;
+
     }/*}}}*/
 
     /**
@@ -1381,7 +1386,9 @@ class Math_Matrix {/*{{{*/
                 }
             }
         }
-        return new Math_Matrix($data);
+
+        $obj = new Math_Matrix($data);
+        return $obj;
     }/*}}}*/
 
     /**
@@ -1413,7 +1420,8 @@ class Math_Matrix {/*{{{*/
                 $data[$i - 1][$j - 1] = 1 / ($i + $j - 1);
             }
         }
-        return new Math_Matrix($data);
+        $obj = new Math_Matrix($data);
+        return $obj;
     }/*}}}*/
 
     /**
@@ -1463,7 +1471,9 @@ class Math_Matrix {/*{{{*/
                 $data[($i - 1)][($j - 1)] = $val;
             }
         }
-        return new Math_Matrix($data);
+        $obj = new Math_Matrix($data);
+        return $obj;
+
     }/*}}}*/
 
 
