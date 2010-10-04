@@ -16,7 +16,7 @@ For running the unit tests you will need PHPUnit version 0.6.2 or older.</descri
   <active>yes</active>
  </lead>
  <date>2010-10-05</date>
- <time>00:17:46</time>
+ <time>00:48:25</time>
  <version>
   <release>0.8.6</release>
   <api>0.8.5</api>
@@ -43,13 +43,13 @@ Bug #16999 Support for PHP 5 	kguest
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="ee67c2003ca155ea51f8b20a07a61ae5" name="contrib/eigen_math_matrix.txt" role="data" />
    <file baseinstalldir="/" md5sum="1809f7e93397775c52fbe8cbe2307036" name="docs/Math_Matrix.dia" role="doc" />
-   <file baseinstalldir="Math" md5sum="2f158265af67f1e95cce1174e19c61a0" name="docs/README-Math_Matrix" role="doc" />
+   <file baseinstalldir="/" md5sum="2f158265af67f1e95cce1174e19c61a0" name="docs/README-Math_Matrix" role="doc" />
    <file baseinstalldir="/" md5sum="3265bb9ce79eb0d26f3afc9fe6762a2a" name="docs/TODO" role="doc" />
-   <file baseinstalldir="/" md5sum="006c0029735369ee5bc2a0e6e80bf9d2" name="Math/Matrix.php" role="php" />
-   <file baseinstalldir="Math" md5sum="464d75efae873a8946d1f5e0cd71f9ec" name="tests/test_Math_Matrix_instance_methods.php" role="test" />
-   <file baseinstalldir="Math" md5sum="af14b9dea859d1012f8e2dc71b492bb5" name="tests/test_Math_Matrix_static_methods.php" role="test" />
-   <file baseinstalldir="Math" md5sum="4f94152a366e2bbb428495948d2f6318" name="tests/examples/data.mat" role="php" />
-   <file baseinstalldir="Math" md5sum="33117d986ec87e04c9b0e1f9bb2eaa51" name="tests/examples/ex_math_matrix.php" role="test" />
+   <file baseinstalldir="/" md5sum="c5042b31c2d69784c7d65fef56e42668" name="Math/Matrix.php" role="php" />
+   <file baseinstalldir="/" md5sum="0e159bec0a028f9f8114da6a9a0a0c48" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="0c260725ee69326b4d1f692ccbb76f49" name="tests/Math_MatrixTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="4f94152a366e2bbb428495948d2f6318" name="tests/examples/data.mat" role="php" />
+   <file baseinstalldir="/" md5sum="33117d986ec87e04c9b0e1f9bb2eaa51" name="tests/examples/ex_math_matrix.php" role="test" />
   </dir>
  </contents>
  <dependencies>
