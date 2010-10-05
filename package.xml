@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Math_Matrix</name>
  <channel>pear.php.net</channel>
  <summary>Class to represent matrices and matrix operations</summary>
@@ -16,10 +16,10 @@ For running the unit tests you will need PHPUnit version 0.6.2 or older.</descri
   <active>yes</active>
  </lead>
  <date>2010-10-05</date>
- <time>00:48:25</time>
+ <time>00:29:55</time>
  <version>
-  <release>0.8.6</release>
-  <api>0.8.5</api>
+  <release>0.8.7</release>
+  <api>0.8.7</api>
  </version>
  <stability>
   <release>beta</release>
@@ -28,28 +28,19 @@ For running the unit tests you will need PHPUnit version 0.6.2 or older.</descri
  <license uri="http://www.php.net/license">PHP</license>
  <notes>
 QA release
-Package 2.0
-Bug #884 PEAR QA: improvement for get_class()-usage 	jmcastagnetto
-Bug #4959 Wrong dependency to PHPUnit 	 
-Bug #9248 Parse error in PHP5 	jmcastagnetto
-Bug #10728 multiply() method 	fou
-Bug #11942 setData creates an error even when it isn&apos;t raised 	jmcastagnetto
-Bug #13209 Math_Matrix has a method &apos;clone&apos; which became a keyword as of PHP5 	jmcastagnetto
-Bug #14986 PHP5 Integration 	 
-Bug #16838 subMatrix has an error where checking for the number of columns 	kguest
-Bug #16999 Support for PHP 5 	kguest
+Updated minimum version of Math_Vector to 0.7.0
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="ee67c2003ca155ea51f8b20a07a61ae5" name="contrib/eigen_math_matrix.txt" role="data" />
-   <file baseinstalldir="/" md5sum="1809f7e93397775c52fbe8cbe2307036" name="docs/Math_Matrix.dia" role="doc" />
-   <file baseinstalldir="/" md5sum="2f158265af67f1e95cce1174e19c61a0" name="docs/README-Math_Matrix" role="doc" />
-   <file baseinstalldir="/" md5sum="3265bb9ce79eb0d26f3afc9fe6762a2a" name="docs/TODO" role="doc" />
-   <file baseinstalldir="/" md5sum="c5042b31c2d69784c7d65fef56e42668" name="Math/Matrix.php" role="php" />
+   <file baseinstalldir="/" md5sum="49689573d8c6f22c10f868edb21e1a81" name="contrib/eigen_math_matrix.txt" role="data" />
+   <file baseinstalldir="/" md5sum="70162f75ff47c45c72adc5b9e0031e97" name="docs/Math_Matrix.dia" role="doc" />
+   <file baseinstalldir="/" md5sum="0b25700f5e359ae9588a6c8ac76782f7" name="docs/README-Math_Matrix" role="doc" />
+   <file baseinstalldir="/" md5sum="2a5d2826ff5ff183d2b06a49e3700833" name="docs/TODO" role="doc" />
+   <file baseinstalldir="/" md5sum="14bb89cea3bad453bc8af9093e16f79b" name="Math/Matrix.php" role="php" />
    <file baseinstalldir="/" md5sum="0e159bec0a028f9f8114da6a9a0a0c48" name="tests/AllTests.php" role="test" />
-   <file baseinstalldir="/" md5sum="0c260725ee69326b4d1f692ccbb76f49" name="tests/Math_MatrixTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="4f94152a366e2bbb428495948d2f6318" name="tests/examples/data.mat" role="php" />
-   <file baseinstalldir="/" md5sum="33117d986ec87e04c9b0e1f9bb2eaa51" name="tests/examples/ex_math_matrix.php" role="test" />
+   <file baseinstalldir="/" md5sum="2be7f8d451abfa79a74031a6e935536b" name="tests/Math_MatrixTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="f25a6cdb229ad85a1e0faf5603eff3b1" name="tests/examples/data.mat" role="php" />
+   <file baseinstalldir="/" md5sum="a985a83c285460bcf1683fca7b157c1a" name="tests/examples/ex_math_matrix.php" role="test" />
   </dir>
  </contents>
  <dependencies>
@@ -58,11 +49,12 @@ Bug #16999 Support for PHP 5 	kguest
     <min>4.0.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.5.6</min>
    </pearinstaller>
    <package>
     <name>Math_Vector</name>
     <channel>pear.php.net</channel>
+    <min>0.7.0</min>
    </package>
   </required>
  </dependencies>
@@ -143,6 +135,22 @@ Bug #13209 Math_Matrix has a method &apos;clone&apos; which became a keyword as 
 Bug #14986 PHP5 Integration 	 
 Bug #16838 subMatrix has an error where checking for the number of columns 	kguest
 Bug #16999 Support for PHP 5 	kguest
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.7</release>
+    <api>0.8.7</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-05</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+QA release
+Updated minimum version of Math_Vector to 0.7.0
    </notes>
   </release>
  </changelog>

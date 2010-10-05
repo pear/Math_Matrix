@@ -22,7 +22,7 @@
 //
 
 require_once 'PEAR.php';
-require_once 'Math/Vector/Vector.php';
+require_once 'Math/Vector.php';
 
 /**
  * Defines a matrix object.
