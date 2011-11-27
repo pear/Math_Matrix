@@ -1470,7 +1470,7 @@ class Math_Matrix {
      * @return object Math_Vector a Math_Vector object on succcess
      * @see vectorMultiply()
      */
-    function solve($a, $b) {
+    public static function solve($a, $b) {
         // check that the vector classes are defined
         if (!Math_Matrix::isMatrix($a) && !Math_VectorOp::isVector($b)) {
             throw new InvalidArgumentException('Incorrect parameters, expecting a Math_Matrix and a Math_Vector');
@@ -1525,7 +1525,7 @@ class Math_Matrix {
      * @see Math_VectorOp::substract()
      * @see Math_VectorOp::length()
      */
-    function solveEC($a, $b) {
+    public static function solveEC($a, $b) {
         $ainv = $a->cloneMatrix();
         $e = $ainv->invert();
 
