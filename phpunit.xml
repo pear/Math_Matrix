@@ -17,4 +17,5 @@
 			<file>*Test.php</file>
 		</testsuite>
 	</testsuites>
+	<php><includePath>lib/</includePath></php>
 </phpunit>
