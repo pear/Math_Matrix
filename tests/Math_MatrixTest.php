@@ -15,13 +15,13 @@
 // +----------------------------------------------------------------------+
 // | Authors: Jesus M. Castagnetto <jmcastagnetto@php.net>                |
 // +----------------------------------------------------------------------+
-// 
+//
 // Matrix definition and manipulation package
-// 
+//
 // $Id$
 //
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Math/Matrix.php';
 
 class Math_MatrixTest extends PHPUnit_Framework_TestCase {/*{{{*/
@@ -190,7 +190,7 @@ class Math_MatrixTest extends PHPUnit_Framework_TestCase {/*{{{*/
                     array(4.0,5.0),
                 );
         $q = $this->m->getSubMatrix(1,1,2,2);
-        $this->assertEquals($data, $q->getData()); 
+        $this->assertEquals($data, $q->getData());
     }
 
     function testAdd() {
@@ -364,7 +364,7 @@ class Math_MatrixTest extends PHPUnit_Framework_TestCase {/*{{{*/
                 );
         $c = array(1,2,3);
         $r = array(1,3,5,7);
-        
+
         $res = new Math_Matrix($data);
         $hankel = Math_Matrix::makeHankel($c, $r);
         $this->assertEquals($res->toString(), $hankel->toString());
