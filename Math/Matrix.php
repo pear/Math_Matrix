@@ -1189,7 +1189,7 @@ class Math_Matrix {
     /**
      * Create a matrix from a file, using data stored in the given format
      */
-    function &readFromFile ($filename, $format='serialized') {
+    public static function readFromFile ($filename, $format='serialized') {
         if (!file_exists($filename) || !is_readable($filename)) {
             throw new Math_Matrix_Exception('File cannot be opened for reading');
         }
@@ -1235,7 +1235,7 @@ class Math_Matrix {
      * @throws InvalidArgumentException
      * @throws Math_Matrix_Exception
      */
-    function writeToFile($matrix, $filename, $format='serialized') {
+    public static function writeToFile($matrix, $filename, $format='serialized') {
         if (!Math_Matrix::isMatrix($matrix)) {
             throw new InvalidArgumentException("Parameter must be a Math_Matrix object");
         }
@@ -1268,7 +1268,7 @@ class Math_Matrix {
      * @param object Math_Matrix $matrix
      * @return boolean TRUE on success, FALSE otherwise
      */
-    function isMatrix (&$matrix) {
+    public static function isMatrix (&$matrix) {
         if (function_exists("is_a")) {
             return is_object($matrix) && is_a($matrix, "Math_Matrix");
         } else {
@@ -1285,7 +1285,7 @@ class Math_Matrix {
      * @return object Math_Matrix Math_Matrix instance on success otherwise
      * @throws InvalidArgumentException
      */
-    function &makeMatrix ($nrows, $ncols, $value) {
+    public static function makeMatrix ($nrows, $ncols, $value) {
         if (!is_int($nrows) && is_int($ncols) && !is_numeric($value)) {
             throw new InvalidArgumentException('Number of rows, columns, and a numeric fill value expected');
         }
@@ -1306,7 +1306,7 @@ class Math_Matrix {
      * @return object Math_Matrix Math_Matrix instance on success
      * @see Math_Matrix::makeMatrix()
      */
-    function &makeOne ($nrows, $ncols) {
+    public static function makeOne ($nrows, $ncols) {
         return Math_Matrix::makeMatrix($nrows, $ncols, 1);
     }
 
@@ -1318,7 +1318,7 @@ class Math_Matrix {
      * @return object Math_Matrix Math_Matrix instance on success
      * @see Math_Matrix::makeMatrix()
      */
-    function &makeZero ($nrows, $ncols) {
+    public static function makeZero ($nrows, $ncols) {
         return Math_Matrix::makeMatrix($nrows, $ncols, 0);
     }
 
@@ -1335,7 +1335,7 @@ class Math_Matrix {
      * @see Math_Matrix::makeIdentity()
      * @throws InvalidArgumentException
      */
-    function &makeUnit ($size) {
+    public static function makeUnit ($size) {
         if (!is_integer($size)) {
             throw new InvalidArgumentException('An integer expected for the size of the Identity matrix');
         }
@@ -1360,7 +1360,7 @@ class Math_Matrix {
      * @return object Math_Matrix a square unit Math_Matrix instance on success
      * @see Math_Matrix::makeUnit()
      */
-    function &makeIdentity($size) {
+    public static function makeIdentity($size) {
         return Math_Matrix::makeUnit($size);
     }
 
@@ -1373,7 +1373,7 @@ class Math_Matrix {
      * @return object Math_Matrix a Hilber matrix on success
      * @throws InvalidArgumentException
      */
-    function &makeHilbert($size) {
+    public static function makeHilbert($size) {
         if (!is_integer($size)) {
             throw new InvalidArgumentException('An integer expected for the size of the Hilbert matrix');
         }
@@ -1405,7 +1405,7 @@ class Math_Matrix {
      * @return object Math_Matrix a Hankel matrix on success
      * @throws InvalidArgumentException
      */
-    function &makeHankel($c, $r=null) {
+    public static function makeHankel($c, $r=null) {
         if (!is_array($c)) {
             throw new InvalidArgumentException('Expecting an array of values for the first column of the Hankel matrix');
         }
