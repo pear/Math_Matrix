@@ -779,7 +779,7 @@ class Math_Matrix {
         $q = Math_Matrix::makeUnit($nr);
 
         for ($i=0; $i<$nr; $i++) {
-            $ridx = $this->_maxElementIndex($i);
+            $ridx = $m->_maxElementIndex($i);
             if ($i != $ridx) {
                 $sign = -$sign;
                 $e = $m->swapRows($i, $ridx);
