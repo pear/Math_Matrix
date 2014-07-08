@@ -379,7 +379,7 @@ class Math_Matrix {
         }
         if ($asVector) {
             $classes = get_declared_classes();
-            if (!in_array("math_vector", $classes) || !in_array("math_vectopop", $classes)) {
+            if (!in_array("math_vector", $classes) || !in_array("math_vectorop", $classes)) {
                 throw new Math_Matrix_Exception("Classes Math_Vector and Math_VectorOp undefined".
                                     " add \"require_once 'Math/Vector/Vector.php'\" to your script");
             }
@@ -447,7 +447,7 @@ class Math_Matrix {
         }
         if ($asVector) {
             $classes = get_declared_classes();
-            if (!in_array("math_vector", $classes) || !in_array("math_vectopop", $classes)) {
+            if (!in_array("math_vector", $classes) || !in_array("math_vectorop", $classes)) {
                 throw new Math_Matrix_Exception("Classes Math_Vector and Math_VectorOp undefined".
                                     " add \"require_once 'Math/Vector/Vector.php'\" to your script");
             }
