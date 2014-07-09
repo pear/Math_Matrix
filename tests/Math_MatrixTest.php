@@ -402,4 +402,40 @@ class Math_MatrixTest extends PHPUnit_Framework_TestCase {/*{{{*/
         $this->assertEquals($resVector->toString(), $x->toString());
     }
 
+    function testMultiplyMatrices() {
+        $Adata = array(
+                    array(1,1,2),
+                    array(2,3,4)
+                );
+
+        $Bdata = array(
+                    array(-1,3),
+                    array(-3,4),
+                    array(-5,2)
+                );
+
+        $ABdata = array(
+                    array(-14, 11),
+                    array(-31, 26)
+                );
+
+        $BAdata = array(
+                    array(5,8,10),
+                    array(5,9,10),
+                    array(-1,1,-2)
+                );
+
+        $A = new Math_Matrix($Adata);
+        $B = new Math_Matrix($Bdata);
+
+        $A1 = Math_Matrix::multiplyMatrices($A, $B);
+        $B1 = Math_Matrix::multiplyMatrices($B, $A);
+
+        $AB = new Math_Matrix($ABdata);
+        $BA = new Math_Matrix($BAdata);
+
+        $this->assertEquals($A1->toString(), $AB->toString());
+        $this->assertEquals($B1->toString(), $BA->toString());
+    }
+
 }/*}}}*/

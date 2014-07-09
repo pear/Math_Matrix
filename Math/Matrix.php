@@ -915,6 +915,10 @@ class Math_Matrix {
         return $out;
     }
 
+    function __toString() {
+        return $this->toString();
+    }
+
     /**
      * Returns an HTML table representation of the matrix elements
      *
@@ -1560,6 +1564,22 @@ class Math_Matrix {
         return $x;
     }
 
+    /**
+     * Convenience static method to multiply matrices and returning the result
+     * as a new matrix
+     *
+     * @param Math_Matrix $m1 a Math_Matrix object
+     * @param Math_Matrix $m2 a Math_Matrix object
+     * @return object Math_Matrix Math_Matrix instance on success
+     * @see multiply()
+     * @throws Math_Matrix_Exception
+     * @throws InvalidArgumentException
+     */
+    public static function multiplyMatrices(&$m1, &$m2) {
+        $mres = $m1->cloneMatrix();
+        $mres->multiply($m2);
+        return $mres;
+    }
 }
 
 // vim: ts=4:sw=4:et:
