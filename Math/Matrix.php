@@ -1163,7 +1163,8 @@ class Math_Matrix {
      * @throws InvalidArgumentException
      */
     function &vectorMultiply(&$v1) {
-        if (!Math_VectorOp::isVector($v1)) {
+        $validator = new Math_VectorOp();
+        if (!$validator->isVector($v1)) {
             throw new InvalidArgumentException("Wrong parameter, a Math_Vector object");
         }
         list($nr, $nc) = $this->getSize();
