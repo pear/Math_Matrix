@@ -1539,7 +1539,8 @@ class Math_Matrix {
         // initial guesses
         $bprime = $a->vectorMultiply($x);
 
-        $err = Math_VectorOp::substract($b, $bprime);
+        $operation = new Math_VectorOp();
+        $err = $operation->substract($b, $bprime);
         $adj = $ainv->vectorMultiply($err);
 
         $adjnorm = $adj->length();
@@ -1548,9 +1549,9 @@ class Math_Matrix {
         // compute new solutions and test for accuracy
         // iterate no more than 10 times
         for ($i=0; $i<10; $i++) {
-            $xnew = Math_VectorOp::add($x, $adj);
+            $xnew = $operation->add($x, $adj);
             $bprime = $a->vectorMultiply($xnew);
-            $err = Math_VectorOp::substract($b, $bprime);
+            $err = $operation->substract($b, $bprime);
             $newadj = $ainv->vectorMultiply($err);
             $newadjnorm = $newadj->length();
             // did we improve the accuracy?
