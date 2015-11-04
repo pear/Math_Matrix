@@ -21,7 +21,6 @@
 // $Id$
 //
 
-require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Math/Matrix.php';
 
 class Math_MatrixTest extends PHPUnit_Framework_TestCase {/*{{{*/
